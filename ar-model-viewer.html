@@ -31,8 +31,23 @@
             padding: 30px 20px;
         }
 
+        .logo-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
         .logo {
-            max-width: 600px;
+            max-width: 500px;
+            width: 100%;
+            height: auto;
+            filter: invert(1); /* Inverts the logo to white for black background */
+        }
+
+        .nhmlac-logo {
+            max-width: 200px;
             width: 100%;
             height: auto;
             filter: invert(1); /* Inverts the logo to white for black background */
@@ -306,11 +321,28 @@
             .logo {
                 max-width: 90%;
             }
+
+            .nhmlac-logo {
+                max-width: 150px;
+            }
+
+            .logo-container {
+                gap: 30px;
+            }
         }
 
         @media (max-width: 600px) {
             .logo {
                 max-width: 100%;
+            }
+
+            .nhmlac-logo {
+                max-width: 120px;
+            }
+
+            .logo-container {
+                gap: 20px;
+                flex-direction: column;
             }
 
             .site-header {
@@ -350,7 +382,10 @@
 <body>
     <div class="container">
         <header class="site-header">
-            <img src="bedchi-logo.png" alt="BEDChI - Bears Ears Digital Cultural Heritage Initiative" class="logo">
+            <div class="logo-container">
+                <img src="bedchi-logo.png" alt="BEDChI - Bears Ears Digital Cultural Heritage Initiative" class="logo">
+                <img src="nhmlac-logo.png" alt="Natural History Museum of Los Angeles County" class="nhmlac-logo">
+            </div>
         </header>
 
         <div class="instructions-banner">
