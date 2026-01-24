@@ -190,7 +190,8 @@
                 ar
                 ar-modes="scene-viewer quick-look"
                 shadow-intensity="1"
-                shadow-softness="1">
+                shadow-softness="1"
+                ar-placement="floor">
                 <button slot="ar-button" class="ar-button">
                     📱 View in AR
                 </button>
@@ -278,20 +279,35 @@
                 viewer.removeAttribute('ios-src');
             }
             
-            // Handle audio
+            // Prepare audio but don't play yet
             if (selectedModel.audio) {
-                audioControls.classList.add('active');
                 audioPlayer.src = selectedModel.audio;
-                // Auto-play the audio (note: some browsers may block auto-play)
-                audioPlayer.play().catch(err => {
-                    console.log('Auto-play prevented. User can click play button.');
-                });
+                audioControls.classList.remove('active'); // Hide controls until AR placement
             } else {
-                audioControls.classList.remove('active');
                 audioPlayer.pause();
                 audioPlayer.src = '';
+                audioControls.classList.remove('active');
             }
         }
+
+        // Listen for AR session events
+        viewer.addEventListener('ar-status', (event) => {
+            if (event.detail.status === 'session-started') {
+                console.log('AR session started');
+            }
+        });
+
+        // Play audio when user exits AR (after placing the object)
+        // Note: iOS Quick Look doesn't provide placement events, so we play when AR ends
+        viewer.addEventListener('ar-status', (event) => {
+            if (event.detail.status === 'not-presenting' && selectedModel && selectedModel.audio) {
+                // AR session ended, play the audio
+                audioControls.classList.add('active');
+                audioPlayer.play().catch(err => {
+                    console.log('Audio play prevented:', err);
+                });
+            }
+        });
 
         // Add loading indicator
         viewer.addEventListener('load', () => {
