@@ -38,6 +38,48 @@
             filter: invert(1); /* Inverts the logo to white for black background */
         }
 
+        .instructions-banner {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px 30px;
+            margin-bottom: 30px;
+            backdrop-filter: blur(10px);
+        }
+
+        .instructions-banner h3 {
+            color: #667eea;
+            font-size: 1.3em;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .instructions-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .instructions-list li {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1em;
+            line-height: 1.6;
+            padding-left: 30px;
+            position: relative;
+        }
+
+        .instructions-list li::before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: #667eea;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
         h1 {
             color: white;
             text-align: center;
@@ -276,6 +318,25 @@
                 margin-bottom: 30px;
             }
 
+            .instructions-banner {
+                padding: 15px 20px;
+                margin-bottom: 20px;
+            }
+
+            .instructions-banner h3 {
+                font-size: 1.1em;
+                margin-bottom: 12px;
+            }
+
+            .instructions-list {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+
+            .instructions-list li {
+                font-size: 0.9em;
+            }
+
             .model-card {
                 padding: 15px;
             }
@@ -291,6 +352,16 @@
         <header class="site-header">
             <img src="bedchi-logo.png" alt="BEDChI - Bears Ears Digital Cultural Heritage Initiative" class="logo">
         </header>
+
+        <div class="instructions-banner">
+            <h3>How to Use</h3>
+            <ul class="instructions-list">
+                <li>Select a model from the library</li>
+                <li>Rotate and zoom the 3D preview</li>
+                <li>Tap "Play Audio" for information</li>
+                <li>Tap "View in AR" to place in your space</li>
+            </ul>
+        </div>
         
         <div class="main-content">
             <!-- Left Column: Model Library -->
@@ -356,8 +427,8 @@
             },
             {
                 name: 'Jar',
-                url: 'jar.usdz',        // Will try USDZ (convert to GLB if preview doesn't work)
-                iosUrl: 'jar.usdz',
+                url: 'jug.glb',         // GLB for browser preview and Android AR
+                iosUrl: 'jar.usdz',     // USDZ for iOS AR
                 audio: 'jar.mp3',       // Add your jar audio file
                 description: 'A ceramic jar rendered in detailed 3D. Examine this artifact from all angles and place it in your environment to see it at full scale.'
             },
