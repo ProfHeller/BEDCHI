@@ -185,37 +185,28 @@
     </div>
 
     <script>
-        // Library of 3D models (using free models from the web)
+        // Library of 3D models
+        // For USDZ files: provide the filename you uploaded to GitHub
+        // The 'url' is used for browser 3D preview
+        // The 'iosUrl' (if provided) is used specifically for AR on iOS
         const models = [
             {
-                name: 'Astronaut',
-                icon: '👨‍🚀',
-                url: 'https://modelviewer.dev/shared-assets/models/Astronaut.glb'
+                name: 'Bird',
+                icon: '🐦',
+                url: 'bird.usdz',
+                iosUrl: 'bird.usdz'
             },
             {
-                name: 'Robot',
-                icon: '🤖',
-                url: 'https://modelviewer.dev/shared-assets/models/RobotExpressive.glb'
+                name: 'Fossil',
+                icon: '🦴',
+                url: 'F.A.1995.77-94_raw_ObjectMaskOn.usdz',
+                iosUrl: 'F.A.1995.77-94_raw_ObjectMaskOn.usdz'
             },
             {
-                name: 'Horse',
-                icon: '🐴',
-                url: 'https://modelviewer.dev/shared-assets/models/Horse.glb'
-            },
-            {
-                name: 'Helmet',
-                icon: '⛑️',
-                url: 'https://modelviewer.dev/shared-assets/models/NeilArmstrong.glb'
-            },
-            {
-                name: 'Chair',
-                icon: '🪑',
-                url: 'https://modelviewer.dev/shared-assets/models/MaterialsVariantsChair.glb'
-            },
-            {
-                name: 'Shoe',
-                icon: '👟',
-                url: 'https://modelviewer.dev/shared-assets/models/MaterialsVariantsShoe.glb'
+                name: 'Mug',
+                icon: '☕',
+                url: 'Mug.usdz',
+                iosUrl: 'Mug.usdz'
             }
         ];
 
@@ -254,8 +245,15 @@
             placeholder.style.display = 'none';
             viewer.style.display = 'block';
             
-            // Load the model
+            // Load the model for 3D preview
             viewer.src = selectedModel.url;
+            
+            // Set iOS-specific AR source if provided (for USDZ files)
+            if (selectedModel.iosUrl) {
+                viewer.setAttribute('ios-src', selectedModel.iosUrl);
+            } else {
+                viewer.removeAttribute('ios-src');
+            }
         }
 
         // Add loading indicator
