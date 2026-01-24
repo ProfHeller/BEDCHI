@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Partners - BEDChI AR Gallery</title>
+    <title>Contact - BEDCHI AR Gallery</title>
     <style>
         * {
             margin: 0;
@@ -59,7 +59,7 @@
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 900px;
             margin: 0 auto;
             padding: 40px 20px;
         }
@@ -100,7 +100,7 @@
             text-align: center;
         }
 
-        .partner-section {
+        .contact-section {
             background: rgba(255, 255, 255, 0.05);
             border-radius: 20px;
             padding: 40px;
@@ -109,24 +109,47 @@
             backdrop-filter: blur(10px);
         }
 
-        .partner-section h2 {
-            font-size: 1.8em;
+        .contact-section h2 {
+            font-size: 1.5em;
             margin-bottom: 20px;
             color: #667eea;
             font-weight: 600;
         }
 
-        .partner-section p {
+        .contact-section p {
             font-size: 1.1em;
             line-height: 1.8;
             color: rgba(255, 255, 255, 0.8);
             margin-bottom: 15px;
         }
 
-        .partner-logo {
-            max-width: 300px;
+        .contact-info {
             margin: 20px 0;
-            filter: invert(1);
+        }
+
+        .contact-item {
+            margin-bottom: 15px;
+            font-size: 1.1em;
+        }
+
+        .contact-label {
+            color: rgba(255, 255, 255, 0.6);
+            font-weight: 600;
+            margin-right: 10px;
+        }
+
+        .contact-value {
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .contact-value a {
+            color: #667eea;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .contact-value a:hover {
+            color: #764ba2;
         }
 
         @media (max-width: 768px) {
@@ -143,7 +166,7 @@
                 gap: 20px;
             }
 
-            .partner-section {
+            .contact-section {
                 padding: 25px;
             }
 
@@ -156,57 +179,75 @@
 <body>
     <nav>
         <div class="nav-container">
-            <a href="../index.html" class="nav-link">Models</a>
+            <a href="../index.html" class="nav-link">Archive</a>
             <a href="../about/" class="nav-link">About</a>
             <a href="../people/" class="nav-link">People</a>
-            <a href="../partners/" class="nav-link active">Partners</a>
-            <a href="../contact/" class="nav-link">Contact</a>
+            <a href="../partners/" class="nav-link">Partners</a>
+            <a href="../contact/" class="nav-link active">Contact</a>
         </div>
     </nav>
 
     <div class="container">
         <header class="site-header">
             <div class="logo-container">
-                <img src="../bedchi-logo.png" alt="BEDChI - Bears Ears Digital Cultural Heritage Initiative" class="logo">
+                <img src="../bedchi-logo.png" alt="BEDCHI - Bears Ears Digital Cultural Heritage Initiative" class="logo">
                 <img src="../nhmlac-logo.png" alt="Natural History Museum of Los Angeles County" class="nhmlac-logo">
             </div>
         </header>
 
-        <h1>Our Partners</h1>
+        <h1>Contact Us</h1>
 
-        <div class="partner-section">
-            <h2>Natural History Museum of Los Angeles County</h2>
+        <div class="contact-section">
+            <h2>Get in Touch</h2>
             <p>
-                The Natural History Museum of Los Angeles County is a premier institution dedicated to inspiring wonder, discovery, and responsibility for the natural and cultural worlds. Through their partnership with BEDChI, they provide expertise in collections management, conservation, and public education.
+                We welcome inquiries about the Bears Ears Digital Cultural Heritage Initiative. Whether you're interested in collaboration, educational programs, or accessing our digital collections, we'd love to hear from you.
             </p>
-            <p>
-                Their world-class facilities and research staff contribute significantly to the digital preservation and presentation of cultural heritage from the Bears Ears region.
-            </p>
+
+            <div class="contact-info">
+                <div class="contact-item">
+                    <span class="contact-label">Email:</span>
+                    <span class="contact-value">
+                        <a href="/cdn-cgi/l/email-protection#335a5d555c73515657505b5a1d5c4154"><span class="__cf_email__" data-cfemail="1d74737b725d7f78797e757433726f7a">[email&#160;protected]</span></a>
+                    </span>
+                </div>
+
+                <div class="contact-item">
+                    <span class="contact-label">Phone:</span>
+                    <span class="contact-value">(555) 123-4567</span>
+                </div>
+
+                <div class="contact-item">
+                    <span class="contact-label">Address:</span>
+                    <span class="contact-value">
+                        Natural History Museum of Los Angeles County<br>
+                        900 Exposition Blvd<br>
+                        Los Angeles, CA 90007
+                    </span>
+                </div>
+            </div>
         </div>
 
-        <div class="partner-section">
-            <h2>Indigenous Communities</h2>
+        <div class="contact-section">
+            <h2>Inquiries</h2>
             <p>
-                We work closely with indigenous nations and tribal communities who have ancestral connections to the Bears Ears region. Their guidance and traditional knowledge are essential to ensuring respectful and accurate representation of cultural heritage.
+                For specific questions about:
             </p>
-            <p>
-                All digitization and presentation of cultural materials is conducted with community consultation and approval, honoring tribal sovereignty and cultural protocols.
-            </p>
-        </div>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <span class="contact-label">Research & Collections:</span>
+                    <span class="contact-value">
+                        <a href="/cdn-cgi/l/email-protection#8bf9eef8eeeaf9e8e3cbe9eeefe8e3e2a5e4f9ec"><span class="__cf_email__" data-cfemail="cebcabbdabafbcada68eacabaaada6a7e0a1bca9">[email&#160;protected]</span></a>
+                    </span>
+                </div>
 
-        <div class="partner-section">
-            <h2>Academic Institutions</h2>
-            <p>
-                BEDChI collaborates with universities and research institutions to advance best practices in digital cultural heritage preservation. These partnerships support ongoing research, student training, and technological innovation.
-            </p>
-        </div>
+                <div class="contact-item">
+                    <span class="contact-label">Education Programs:</span>
+                    <span class="contact-value">
+                        <a href="/cdn-cgi/l/email-protection#f1949584929085989e9fb1939495929998df9e8396"><span class="__cf_email__" data-cfemail="5e3b3a2b3d3f2a3731301e3c3b3a3d363770312c39">[email&#160;protected]</span></a>
+                    </span>
+                </div>
 
-        <div class="partner-section">
-            <h2>Technology Partners</h2>
-            <p>
-                Our technology partners provide expertise in 3D scanning, photogrammetry, augmented reality development, and digital asset management. Their contributions enable us to create high-quality digital representations that serve both preservation and educational goals.
-            </p>
-        </div>
-    </div>
-</body>
-</html>
+                <div class="contact-item">
+                    <span class="contact-label">Technical Support:</span>
+                    <span class="contact-value">
+                        <a href="/cdn-cgi/l/email-protection#74070104041b060034161110171c1d5a1b0613"><

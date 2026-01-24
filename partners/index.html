@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Partners - BEDCHI AR Gallery</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #000000;
+            color: #ffffff;
+            min-height: 100vh;
+        }
+
+        nav {
+            background: rgba(0, 0, 0, 0.95);
+            border-bottom: 1px solid rgba(102, 126, 234, 0.3);
+            padding: 0;
+            backdrop-filter: blur(20px);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0;
+            height: 70px;
+        }
+
+        .nav-link {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            font-size: 0.85em;
+            font-weight: 500;
+            padding: 0 30px;
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            display: inline-block;
+            height: 70px;
+            line-height: 70px;
+        }
+
+        .nav-link:hover {
+            color: #ffffff;
+            background: rgba(102, 126, 234, 0.1);
+            border-bottom-color: rgba(102, 126, 234, 0.5);
+        }
+
+        .nav-link.active {
+            color: #ffffff;
+            background: rgba(102, 126, 234, 0.15);
+            border-bottom-color: #667eea;
+            font-weight: 600;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .site-header {
+            text-align: center;
+            margin-bottom: 60px;
+            padding: 30px 20px;
+        }
+
+        .logo-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            max-width: 500px;
+            width: 100%;
+            height: auto;
+            filter: invert(1);
+        }
+
+        .nhmlac-logo {
+            max-width: 200px;
+            width: 100%;
+            height: auto;
+            filter: invert(1);
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 40px;
+            color: #667eea;
+            font-weight: 700;
+            text-align: center;
+        }
+
+        .partner-section {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .partner-section h2 {
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            color: #667eea;
+            font-weight: 600;
+        }
+
+        .partner-section h3 {
+            font-size: 1.3em;
+            margin-top: 5px;
+            margin-bottom: 15px;
+            color: rgba(255, 255, 255, 0.95);
+            font-weight: 600;
+        }
+
+        .partner-logo-container {
+            margin: 25px 0 15px 0;
+            text-align: left;
+        }
+
+        .partner-logo-container:first-of-type {
+            margin-top: 0;
+        }
+
+        .partner-logo {
+            max-width: 250px;
+            height: auto;
+            filter: invert(1) brightness(0.95);
+            opacity: 0.9;
+        }
+
+        .partner-section p {
+            font-size: 1.1em;
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 15px;
+        }
+
+        @media (max-width: 1024px) {
+            .logo {
+                max-width: 90%;
+            }
+
+            .nhmlac-logo {
+                max-width: 150px;
+            }
+
+            .logo-container {
+                gap: 30px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-container {
+                padding: 0;
+                height: auto;
+                flex-wrap: wrap;
+            }
+
+            .nav-link {
+                padding: 18px 20px;
+                font-size: 0.75em;
+                height: auto;
+                line-height: normal;
+            }
+
+            .logo {
+                max-width: 100%;
+            }
+
+            .nhmlac-logo {
+                max-width: 120px;
+            }
+
+            .logo-container {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .partner-section {
+                padding: 25px;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="../index.html" class="nav-link">Archive</a>
+            <a href="../about/" class="nav-link">About</a>
+            <a href="../people/" class="nav-link">People</a>
+            <a href="../partners/" class="nav-link active">Partners</a>
+            <a href="../contact/" class="nav-link">Contact</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <header class="site-header">
+            <div class="logo-container">
+                <img src="../bedchi-logo.png" alt="BEDCHI - Bears Ears Digital Cultural Heritage Initiative" class="logo">
+                <img src="../nhmlac-logo.png" alt="Natural History Museum of Los Angeles County" class="nhmlac-logo">
+            </div>
+        </header>
+
+        <h1>Our Partners</h1>
+
+        <div class="partner-section">
+            <h2>Universities</h2>
+            
+            <div class="partner-logo-container">
+                <img src="logos/usc-logo.png" alt="USC Logo" class="partner-logo">
+            </div>
+            <h3>University of Southern California (USC)</h3>
+            <p>
+                The University of Southern California brings expertise in digital humanities and advanced visualization technologies. Their faculty and students contribute to developing innovative methods for cultural heritage documentation and public engagement through digital media.
+            </p>
+
+            <div class="partner-logo-container">
+                <img src="logos/unb-logo.png" alt="University of New Brunswick Logo" class="partner-logo">
+            </div>
+            <h3>University of New Brunswick</h3>
+            <p>
+                The University of New Brunswick provides specialized knowledge in geospatial analysis and archaeological survey techniques. Their research focuses on landscape archaeology and the integration of traditional ecological knowledge with modern scientific methods.
+            </p>
+
+            <div class="partner-logo-container">
+                <img src="logos/uofa-logo.png" alt="University of Arizona Logo" class="partner-logo">
+            </div>
+            <h3>University of Arizona</h3>
+            <p>
+                The University of Arizona contributes cutting-edge research in Southwestern archaeology and anthropology. Their expertise in ceramic analysis, chronology, and regional cultural patterns helps contextualize artifacts within broader historical frameworks.
+            </p>
+
+            <div class="partner-logo-container">
+                <img src="logos/ifr-logo.png" alt="Institute for Field Research Logo" class="partner-logo">
+            </div>
+            <h3>Institute for Field Research</h3>
+            <p>
+                The Institute for Field Research (IFR) connects students and early-career researchers with field opportunities in archaeology and cultural heritage. Through IFR, BEDCHI engages students in hands-on training in digital documentation methods, fostering the next generation of cultural heritage professionals while advancing collaborative research goals.
+            </p>
+        </div>
+
+        <div class="partner-section">
+            <h2>Tribal Partners</h2>
+            
+            <div class="partner-logo-container">
+                <img src="logos/navajo-logo.png" alt="Navajo Nation Logo" class="partner-logo">
+            </div>
+            <h3>Navajo Nation Heritage and Historic Preservation Department</h3>
+            <p>
+                The Navajo Nation Heritage and Historic Preservation Department ensures that cultural materials are documented and presented in ways that honor Navajo traditions and perspectives. Their guidance is essential to maintaining the cultural integrity and appropriate stewardship of items with ancestral connections to Navajo people.
+            </p>
+
+            <div class="partner-logo-container">
+                <img src="logos/zuni-logo.png" alt="Zuni Logo" class="partner-logo">
+            </div>
+            <h3>Zuni Cultural Resources Advisory Team</h3>
+            <p>
+                The Zuni Cultural Resources Advisory Team provides critical consultation on cultural protocols and traditional knowledge related to artifacts and sites within the Bears Ears region. Their participation ensures respectful treatment of culturally sensitive materials and proper recognition of Zuni cultural heritage.
+            </p>
+        </div>
+
+        <div class="partner-section">
+            <h2>Museums</h2>
+            
+            <div class="partner-logo-container">
+                <img src="logos/nhmlac-logo.png" alt="NHMLAC Logo" class="partner-logo">
+            </div>
+            <h3>Natural History Museum of Los Angeles County (NHMLAC)</h3>
+            <p>
+                The Natural History Museum of Los Angeles County is a premier institution dedicated to inspiring wonder, discovery, and responsibility for the natural and cultural worlds. Through their partnership with BEDCHI, they provide expertise in collections management, conservation, and public education, along with world-class facilities and research staff.
+            </p>
+
+            <div class="partner-logo-container">
+                <img src="logos/edge-cedars-logo.png" alt="Edge of the Cedars Logo" class="partner-logo">
+            </div>
+            <h3>Edge of the Cedars State Park Museum</h3>
+            <p>
+                Edge of the Cedars State Park Museum, located in Blanding, Utah, houses one of the premier collections of Ancestral Puebloan artifacts. Their proximity to the Bears Ears region and deep relationships with local communities make them an invaluable partner in contextualizing and interpreting cultural materials.
+            </p>
+
+            <div class="partner-logo-container">
+                <img src="logos/asu-museum-logo.png" alt="Arizona State Museum Logo" class="partner-logo">
+            </div>
+            <h3>Arizona State Museum</h3>
+            <p>
+                Arizona State Museum at the University of Arizona maintains extensive collections from the Southwest and provides crucial expertise in archaeological conservation and curation. Their research programs advance understanding of the region's cultural history and support ethical stewardship of cultural heritage.
+            </p>
+
+            <div class="partner-logo-container">
+                <img src="logos/ashiwi-awan-logo.png" alt="A:shiwi A:wan Museum Logo" class="partner-logo">
+            </div>
+            <h3>A:shiwi A:wan Museum and Heritage Center</h3>
+            <p>
+                The A:shiwi A:wan Museum and Heritage Center on the Zuni Pueblo serves as the cultural repository for the Zuni people. This tribally-operated museum ensures that Zuni cultural heritage is preserved and interpreted from a Zuni perspective, maintaining cultural sovereignty over ancestral materials.
+            </p>
+        </div>
+
+        <div class="partner-section">
+            <h2>Conservation Groups</h2>
+            
+            <div class="partner-logo-container">
+                <img src="logos/cnha-logo.png" alt="Canyonlands Natural History Association Logo" class="partner-logo">
+            </div>
+            <h3>Canyonlands Natural History Association</h3>
+            <p>
+                The Canyonlands Natural History Association is a nonprofit organization dedicated to inspiring appreciation and stewardship of public lands in southeastern Utah. Through educational programs, publications, and community engagement, they support conservation efforts and connect people with the cultural and natural heritage of the Bears Ears region and surrounding landscapes.
+            </p>
+        </div>
+
+        <div class="partner-section">
+            <h2>Federal Agencies</h2>
+            
+            <div class="partner-logo-container">
+                <img src="logos/usfs-logo.png" alt="U.S. Forest Service Logo" class="partner-logo">
+            </div>
+            <h3>U.S. Forest Service (USFS)</h3>
+            <p>
+                The U.S. Forest Service manages portions of the Manti-La Sal National Forest adjacent to Bears Ears National Monument. Their archaeologists and cultural resource specialists work to document, protect, and interpret cultural sites on federal lands, collaborating with tribal nations and researchers to ensure proper stewardship.
+            </p>
+
+            <div class="partner-logo-container">
+                <img src="logos/blm-logo.png" alt="Bureau of Land Management Logo" class="partner-logo">
+            </div>
+            <h3>Bureau of Land Management (BLM)</h3>
+            <p>
+                The Bureau of Land Management administers significant portions of the Bears Ears National Monument and surrounding public lands. BLM cultural resource programs support archaeological research, site protection, and collaborative management with tribal partners, providing critical data and access for digital documentation initiatives.
+            </p>
+        </div>
+    </div>
+</body>
+</html>

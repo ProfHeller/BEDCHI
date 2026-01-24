@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About - BEDCHI AR Gallery</title>
+    <title>People - BEDCHI AR Gallery</title>
     <style>
         * {
             margin: 0;
@@ -92,34 +92,54 @@
             filter: invert(1);
         }
 
-        .content-section {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 20px;
-            padding: 40px;
-            margin-bottom: 30px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-        }
-
         h1 {
             font-size: 2.5em;
-            margin-bottom: 20px;
+            margin-bottom: 40px;
             color: #667eea;
             font-weight: 700;
+            text-align: center;
         }
 
-        h2 {
-            font-size: 1.8em;
-            margin-bottom: 20px;
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .team-member {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .team-member:hover {
+            background: rgba(255, 255, 255, 0.08);
+            transform: translateY(-5px);
+        }
+
+        .member-name {
+            font-size: 1.5em;
+            margin-bottom: 10px;
             color: #667eea;
             font-weight: 600;
         }
 
-        p {
+        .member-title {
             font-size: 1.1em;
-            line-height: 1.8;
-            color: rgba(255, 255, 255, 0.8);
             margin-bottom: 15px;
+            color: rgba(255, 255, 255, 0.7);
+            font-weight: 500;
+        }
+
+        .member-bio {
+            font-size: 1em;
+            line-height: 1.7;
+            color: rgba(255, 255, 255, 0.8);
         }
 
         @media (max-width: 768px) {
@@ -136,16 +156,12 @@
                 gap: 20px;
             }
 
-            .content-section {
-                padding: 25px;
+            .team-grid {
+                grid-template-columns: 1fr;
             }
 
             h1 {
                 font-size: 2em;
-            }
-
-            h2 {
-                font-size: 1.5em;
             }
         }
     </style>
@@ -154,8 +170,8 @@
     <nav>
         <div class="nav-container">
             <a href="../index.html" class="nav-link">Archive</a>
-            <a href="../about/" class="nav-link active">About</a>
-            <a href="../people/" class="nav-link">People</a>
+            <a href="../about/" class="nav-link">About</a>
+            <a href="../people/" class="nav-link active">People</a>
             <a href="../partners/" class="nav-link">Partners</a>
             <a href="../contact/" class="nav-link">Contact</a>
         </div>
@@ -169,34 +185,56 @@
             </div>
         </header>
 
-        <div class="content-section">
-            <h1>About BEDCHI</h1>
-            <p>
-                Bears Ears Digital Cultural Heritage Initiative (BEDCHI) is a collaborative project that documents and interprets cultural heritage sites and landscapes of the Bears Ears region in southeastern Utah through 3D scanning, immersive visualization, recording oral histories, and community-engaged research.
-            </p>
-            <p>
-                Working with Indigenous cultural experts, land managers, archaeologists, conservation organizations and students, BEDCHI uses workshops and field projects to build shared skills, support Indigenous interpretive authority, and create digital resources—such as 3D models and VR experiences—that aid research, education, and public outreach.
-            </p>
-        </div>
+        <h1>Our Team</h1>
 
-        <div class="content-section">
-            <h2>Our Mission</h2>
-            <p>
-                Our mission is to make cultural heritage accessible to everyone while preserving the integrity and context of these important artifacts. Through AR technology, we enable people to interact with and learn about these objects in ways that traditional displays cannot provide.
-            </p>
-            <p>
-                We work closely with indigenous communities, museums, and researchers to ensure that cultural heritage is presented respectfully and accurately, honoring the traditions and knowledge of the peoples who created these objects.
-            </p>
-        </div>
+        <div class="team-grid">
+            <div class="team-member">
+                <div class="member-name">Team Member Name</div>
+                <div class="member-title">Project Director</div>
+                <p class="member-bio">
+                    Brief biography and role description goes here. Include expertise, background, and contribution to the project.
+                </p>
+            </div>
 
-        <div class="content-section">
-            <h2>Technology & Approach</h2>
-            <p>
-                Our team uses advanced 3D scanning techniques to capture high-resolution digital models of artifacts. These models preserve fine details that might be lost over time and allow for non-invasive study and analysis.
-            </p>
-            <p>
-                By combining these 3D models with augmented reality technology, we create immersive educational experiences that bring cultural heritage to life on any smartphone or tablet. Users can examine artifacts from all angles, place them in their own environment, and learn about their historical and cultural significance.
-            </p>
+            <div class="team-member">
+                <div class="member-name">Team Member Name</div>
+                <div class="member-title">Lead Researcher</div>
+                <p class="member-bio">
+                    Brief biography and role description goes here. Include expertise, background, and contribution to the project.
+                </p>
+            </div>
+
+            <div class="team-member">
+                <div class="member-name">Team Member Name</div>
+                <div class="member-title">3D Technology Specialist</div>
+                <p class="member-bio">
+                    Brief biography and role description goes here. Include expertise, background, and contribution to the project.
+                </p>
+            </div>
+
+            <div class="team-member">
+                <div class="member-name">Team Member Name</div>
+                <div class="member-title">Cultural Liaison</div>
+                <p class="member-bio">
+                    Brief biography and role description goes here. Include expertise, background, and contribution to the project.
+                </p>
+            </div>
+
+            <div class="team-member">
+                <div class="member-name">Team Member Name</div>
+                <div class="member-title">Education Coordinator</div>
+                <p class="member-bio">
+                    Brief biography and role description goes here. Include expertise, background, and contribution to the project.
+                </p>
+            </div>
+
+            <div class="team-member">
+                <div class="member-name">Team Member Name</div>
+                <div class="member-title">Technical Developer</div>
+                <p class="member-bio">
+                    Brief biography and role description goes here. Include expertise, background, and contribution to the project.
+                </p>
+            </div>
         </div>
     </div>
 </body>

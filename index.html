@@ -180,6 +180,39 @@
             font-weight: 600;
         }
 
+        .category-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .category-tab {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.7);
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-size: 0.95em;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .category-tab:hover {
+            background: rgba(255, 255, 255, 0.08);
+            color: rgba(255, 255, 255, 0.9);
+            border-color: rgba(102, 126, 234, 0.3);
+        }
+
+        .category-tab.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-color: #667eea;
+            color: #ffffff;
+            font-weight: 600;
+        }
+
         .model-card {
             background: rgba(255, 255, 255, 0.08);
             border-radius: 12px;
@@ -467,7 +500,7 @@
 <body>
     <nav>
         <div class="nav-container">
-            <a href="index.html" class="nav-link active">Models</a>
+            <a href="index.html" class="nav-link active">Archive</a>
             <a href="about/" class="nav-link">About</a>
             <a href="people/" class="nav-link">People</a>
             <a href="partners/" class="nav-link">Partners</a>
@@ -478,13 +511,13 @@
     <div class="container">
         <header class="site-header">
             <div class="logo-container">
-                <img src="bedchi-logo.png" alt="BEDChI - Bears Ears Digital Cultural Heritage Initiative" class="logo">
+                <img src="bedchi-logo.png" alt="BEDCHI - Bears Ears Digital Cultural Heritage Initiative" class="logo">
                 <img src="nhmlac-logo.png" alt="Natural History Museum of Los Angeles County" class="nhmlac-logo">
             </div>
         </header>
 
         <div class="instructions-banner">
-            <h3>How to Use</h3>
+            <h3>Instructions</h3>
             <ul class="instructions-list">
                 <li>Select a model from the library</li>
                 <li>Rotate and zoom the 3D preview</li>
@@ -496,7 +529,11 @@
         <div class="main-content">
             <!-- Left Column: Model Library -->
             <div class="model-library">
-                <h2>Model Library</h2>
+                <h2>BEDCHI Digital Archive</h2>
+                <div class="category-tabs">
+                    <button class="category-tab active" data-category="objects">Objects</button>
+                    <button class="category-tab" data-category="sites">Sites/Landscapes</button>
+                </div>
                 <div id="modelLibrary"></div>
             </div>
 
@@ -558,6 +595,7 @@
         const models = [
             {
                 name: 'Bird',
+                category: 'objects',
                 url: 'models/bird/bird.glb',
                 iosUrl: 'models/bird/bird.usdz',
                 audio: 'models/bird/bird.mp3',
@@ -569,6 +607,7 @@
             },
             {
                 name: 'Jar',
+                category: 'objects',
                 url: 'models/jar/jar.glb',
                 iosUrl: 'models/jar/jar.usdz',
                 audio: 'models/jar/jar.mp3',
@@ -580,6 +619,7 @@
             },
             {
                 name: 'Mug',
+                category: 'objects',
                 url: 'models/mug/Mug.glb',
                 iosUrl: 'models/mug/Mug.usdz',
                 audio: 'models/mug/Mug.mp3',
@@ -603,24 +643,52 @@
         const metadataAccession = document.getElementById('metadataAccession');
         const metadataDescription = document.getElementById('metadataDescription');
         let selectedModel = null;
+        let currentCategory = 'objects';
 
-        // Create model cards
-        models.forEach((model, index) => {
-            const card = document.createElement('div');
-            card.className = 'model-card';
-            card.innerHTML = `
-                <div class="model-info">
-                    <div class="model-name">${model.name}</div>
-                    <div class="model-preview-label">Tap to preview</div>
-                </div>
-            `;
-            
-            card.addEventListener('click', () => {
-                selectModel(index, card);
+        // Category tab switching
+        document.querySelectorAll('.category-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Update active tab
+                document.querySelectorAll('.category-tab').forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                
+                // Update current category
+                currentCategory = tab.dataset.category;
+                
+                // Re-render model library
+                renderModels();
             });
-            
-            modelLibrary.appendChild(card);
         });
+
+        function renderModels() {
+            // Clear current models
+            modelLibrary.innerHTML = '';
+            
+            // Filter and display models for current category
+            models
+                .filter(model => model.category === currentCategory)
+                .forEach((model, filteredIndex) => {
+                    const originalIndex = models.indexOf(model);
+                    const card = document.createElement('div');
+                    card.className = 'model-card';
+                    card.dataset.index = originalIndex;
+                    card.innerHTML = `
+                        <div class="model-info">
+                            <div class="model-name">${model.name}</div>
+                            <div class="model-preview-label">Tap to preview</div>
+                        </div>
+                    `;
+                    
+                    card.addEventListener('click', () => {
+                        selectModel(originalIndex, card);
+                    });
+                    
+                    modelLibrary.appendChild(card);
+                });
+        }
+
+        // Initial render
+        renderModels();
 
         function selectModel(index, cardElement) {
             // Remove previous selection
