@@ -138,6 +138,20 @@
             box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
         }
 
+        .audio-controls {
+            margin-top: 15px;
+            display: none;
+        }
+
+        .audio-controls.active {
+            display: block;
+        }
+
+        audio {
+            width: 100%;
+            max-width: 300px;
+        }
+
         @media (max-width: 600px) {
             .model-library {
                 grid-template-columns: repeat(2, 1fr);
@@ -181,6 +195,9 @@
                     📱 View in AR
                 </button>
             </model-viewer>
+            <div id="audioControls" class="audio-controls">
+                <audio id="audioPlayer" controls></audio>
+            </div>
         </div>
     </div>
 
@@ -189,30 +206,36 @@
         // For USDZ files: provide the filename you uploaded to GitHub
         // The 'url' is used for browser 3D preview
         // The 'iosUrl' (if provided) is used specifically for AR on iOS
+        // The 'audio' (optional) is the audio file to play when model loads
         const models = [
             {
                 name: 'Bird',
                 icon: '🐦',
                 url: 'bird.usdz',
-                iosUrl: 'bird.usdz'
+                iosUrl: 'bird.usdz',
+                audio: null  // No audio for this model yet
             },
             {
                 name: 'Fossil',
                 icon: '🦴',
                 url: 'F.A.1995.77-94_raw_ObjectMaskOn.usdz',
-                iosUrl: 'F.A.1995.77-94_raw_ObjectMaskOn.usdz'
+                iosUrl: 'F.A.1995.77-94_raw_ObjectMaskOn.usdz',
+                audio: null  // No audio for this model
             },
             {
                 name: 'Mug',
                 icon: '☕',
                 url: 'Mug.usdz',
-                iosUrl: 'Mug.usdz'
+                iosUrl: 'Mug.usdz',
+                audio: 'Mug.mp3'  // Plays "This is a mug"
             }
         ];
 
         const modelLibrary = document.getElementById('modelLibrary');
         const viewer = document.getElementById('viewer');
         const placeholder = document.getElementById('placeholder');
+        const audioPlayer = document.getElementById('audioPlayer');
+        const audioControls = document.getElementById('audioControls');
         let selectedModel = null;
 
         // Create model cards
@@ -253,6 +276,20 @@
                 viewer.setAttribute('ios-src', selectedModel.iosUrl);
             } else {
                 viewer.removeAttribute('ios-src');
+            }
+            
+            // Handle audio
+            if (selectedModel.audio) {
+                audioControls.classList.add('active');
+                audioPlayer.src = selectedModel.audio;
+                // Auto-play the audio (note: some browsers may block auto-play)
+                audioPlayer.play().catch(err => {
+                    console.log('Auto-play prevented. User can click play button.');
+                });
+            } else {
+                audioControls.classList.remove('active');
+                audioPlayer.pause();
+                audioPlayer.src = '';
             }
         }
 
