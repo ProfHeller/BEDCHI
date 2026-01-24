@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AR Model Viewer</title>
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.3.0/model-viewer.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #000000;
+            color: #ffffff;
+            min-height: 100vh;
+        }
+
+        nav {
+            background: rgba(0, 0, 0, 0.95);
+            border-bottom: 1px solid rgba(102, 126, 234, 0.3);
+            padding: 0;
+            backdrop-filter: blur(20px);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0;
+            height: 70px;
+        }
+
+        .nav-link {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            font-size: 0.85em;
+            font-weight: 500;
+            padding: 0 30px;
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            display: inline-block;
+            height: 70px;
+            line-height: 70px;
+        }
+
+        .nav-link:hover {
+            color: #ffffff;
+            background: rgba(102, 126, 234, 0.1);
+            border-bottom-color: rgba(102, 126, 234, 0.5);
+        }
+
+        .nav-link.active {
+            color: #ffffff;
+            background: rgba(102, 126, 234, 0.15);
+            border-bottom-color: #667eea;
+            font-weight: 600;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .site-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px 20px;
+        }
+
+        .logo-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            max-width: 500px;
+            width: 100%;
+            height: auto;
+            filter: invert(1); /* Inverts the logo to white for black background */
+        }
+
+        .nhmlac-logo {
+            max-width: 200px;
+            width: 100%;
+            height: auto;
+            filter: invert(1); /* Inverts the logo to white for black background */
+        }
+
+        .instructions-banner {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px 30px;
+            margin-bottom: 30px;
+            backdrop-filter: blur(10px);
+        }
+
+        .instructions-banner h3 {
+            color: #667eea;
+            font-size: 1.3em;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .instructions-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .instructions-list li {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1em;
+            line-height: 1.6;
+            padding-left: 30px;
+            position: relative;
+        }
+
+        .instructions-list li::before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: #667eea;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        h1 {
+            color: white;
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2.5em;
+            font-weight: 700;
+            letter-spacing: -1px;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 400px 1fr;
+            gap: 30px;
+            align-items: start;
+        }
+
+        .model-library {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 20px;
+            max-height: calc(100vh - 40px);
+            overflow-y: auto;
+        }
+
+        .model-library h2 {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        .model-card {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .model-card:hover {
+            background: rgba(255, 255, 255, 0.12);
+            border-color: rgba(255, 255, 255, 0.3);
+            transform: translateX(5px);
+        }
+
+        .model-card.selected {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-color: #667eea;
+            box-shadow: 0 4px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .model-info {
+            flex-grow: 1;
+        }
+
+        .model-name {
+            font-weight: 600;
+            font-size: 1.2em;
+            margin-bottom: 5px;
+        }
+
+        .model-preview-label {
+            font-size: 0.85em;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .viewer-section {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .viewer-container {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            padding: 20px;
+            min-height: 500px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        model-viewer {
+            width: 100%;
+            height: 500px;
+            border-radius: 10px;
+            background: transparent;
+        }
+
+        .placeholder {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.5);
+            padding: 40px;
+        }
+
+        .placeholder-icon {
+            font-size: 5em;
+            margin-bottom: 20px;
+            opacity: 0.3;
+        }
+
+        .placeholder h2 {
+            font-size: 1.8em;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .placeholder p {
+            font-size: 1.1em;
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .model-description {
+            margin-top: 25px;
+            padding: 25px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .model-description h3 {
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            color: #667eea;
+            font-weight: 600;
+        }
+
+        .metadata-field {
+            margin-bottom: 15px;
+        }
+
+        .metadata-label {
+            font-size: 0.85em;
+            color: rgba(255, 255, 255, 0.5);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .metadata-value {
+            font-size: 1em;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .metadata-description {
+            font-size: 1.05em;
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.8);
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .ar-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 18px 40px;
+            font-size: 1.2em;
+            border-radius: 30px;
+            cursor: pointer;
+            margin-top: 20px;
+            font-weight: 600;
+            box-shadow: 0 4px 20px rgba(102, 126, 234, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .ar-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 25px rgba(102, 126, 234, 0.6);
+        }
+
+        .button-container {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .play-audio-button {
+            background: linear-gradient(135deg, #34d399 0%, #10b981 100%);
+            color: white;
+            border: none;
+            padding: 18px 40px;
+            font-size: 1.2em;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 600;
+            box-shadow: 0 4px 20px rgba(52, 211, 153, 0.4);
+            transition: all 0.3s ease;
+            display: none;
+        }
+
+        .play-audio-button.active {
+            display: inline-block;
+        }
+
+        .play-audio-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 25px rgba(52, 211, 153, 0.6);
+        }
+
+        .play-audio-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .audio-controls {
+            margin-top: 20px;
+            display: none;
+        }
+
+        .audio-controls.active {
+            display: block;
+        }
+
+        audio {
+            width: 100%;
+            max-width: 400px;
+            border-radius: 10px;
+        }
+
+        @media (max-width: 1024px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+
+            .model-library {
+                position: static;
+                max-height: none;
+            }
+
+            .logo {
+                max-width: 90%;
+            }
+
+            .nhmlac-logo {
+                max-width: 150px;
+            }
+
+            .logo-container {
+                gap: 30px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .nav-container {
+                padding: 0;
+                height: auto;
+                flex-wrap: wrap;
+            }
+
+            .nav-link {
+                padding: 18px 20px;
+                font-size: 0.75em;
+                height: auto;
+                line-height: normal;
+            }
+
+            .logo {
+                max-width: 100%;
+            }
+
+            .nhmlac-logo {
+                max-width: 120px;
+            }
+
+            .logo-container {
+                gap: 20px;
+                flex-direction: column;
+            }
+
+            .site-header {
+                padding: 20px 10px;
+                margin-bottom: 30px;
+            }
+
+            .instructions-banner {
+                padding: 15px 20px;
+                margin-bottom: 20px;
+            }
+
+            .instructions-banner h3 {
+                font-size: 1.1em;
+                margin-bottom: 12px;
+            }
+
+            .instructions-list {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+
+            .instructions-list li {
+                font-size: 0.9em;
+            }
+
+            .model-card {
+                padding: 15px;
+            }
+
+            .model-name {
+                font-size: 1.1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="nav-link active">Models</a>
+            <a href="about/" class="nav-link">About</a>
+            <a href="people/" class="nav-link">People</a>
+            <a href="partners/" class="nav-link">Partners</a>
+            <a href="contact/" class="nav-link">Contact</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <header class="site-header">
+            <div class="logo-container">
+                <img src="bedchi-logo.png" alt="BEDChI - Bears Ears Digital Cultural Heritage Initiative" class="logo">
+                <img src="nhmlac-logo.png" alt="Natural History Museum of Los Angeles County" class="nhmlac-logo">
+            </div>
+        </header>
+
+        <div class="instructions-banner">
+            <h3>How to Use</h3>
+            <ul class="instructions-list">
+                <li>Select a model from the library</li>
+                <li>Rotate and zoom the 3D preview</li>
+                <li>Tap "Play Audio" for information</li>
+                <li>Tap "View in AR" to place in your space</li>
+            </ul>
+        </div>
+        
+        <div class="main-content">
+            <!-- Left Column: Model Library -->
+            <div class="model-library">
+                <h2>Model Library</h2>
+                <div id="modelLibrary"></div>
+            </div>
+
+            <!-- Right Column: Viewer and Description -->
+            <div class="viewer-section">
+                <div class="viewer-container">
+                    <div id="placeholder" class="placeholder">
+                        <div class="placeholder-icon">🎨</div>
+                        <h2>Select a model to begin</h2>
+                        <p>Choose from the library to view in 3D and AR</p>
+                    </div>
+                    <model-viewer id="viewer" 
+                        style="display: none;"
+                        camera-controls 
+                        touch-action="pan-y"
+                        auto-rotate
+                        ar
+                        ar-modes="scene-viewer quick-look"
+                        shadow-intensity="1"
+                        shadow-softness="1"
+                        ar-placement="floor">
+                        <button slot="ar-button" class="ar-button">
+                            📱 View in AR
+                        </button>
+                    </model-viewer>
+                    <div class="button-container">
+                        <button id="playAudioButton" class="play-audio-button">
+                            🔊 Play Audio
+                        </button>
+                    </div>
+                    <div id="audioControls" class="audio-controls">
+                        <audio id="audioPlayer" controls></audio>
+                    </div>
+                </div>
+                
+                <div id="modelDescription" class="model-description" style="display: none;">
+                    <h3 id="descriptionTitle"></h3>
+                    <div class="metadata-field">
+                        <div class="metadata-label">Museum</div>
+                        <div class="metadata-value" id="metadataMuseum"></div>
+                    </div>
+                    <div class="metadata-field">
+                        <div class="metadata-label">Accession Number</div>
+                        <div class="metadata-value" id="metadataAccession"></div>
+                    </div>
+                    <div class="metadata-description" id="metadataDescription"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Library of 3D models
+        // For USDZ files: provide the filename you uploaded to GitHub
+        // The 'url' is used for browser 3D preview (use GLB for best results)
+        // The 'iosUrl' (if provided) is used specifically for AR on iOS (use USDZ)
+        // The 'audio' (optional) is the audio file to play when model loads
+        // The 'metadata' contains detailed information displayed in the right column
+        const models = [
+            {
+                name: 'Bird',
+                url: 'models/bird/bird.glb',
+                iosUrl: 'models/bird/bird.usdz',
+                audio: 'models/bird/bird.mp3',
+                metadata: {
+                    museum: 'Natural History Museum of Los Angeles County',
+                    accession: 'NHMLAC 2024.001',
+                    description: 'A beautifully preserved avian specimen showcasing detailed plumage and anatomical features. This 3D model captures the intricate details of the bird\'s form, making it an excellent educational resource for ornithology studies.'
+                }
+            },
+            {
+                name: 'Jar',
+                url: 'models/jar/jar.glb',
+                iosUrl: 'models/jar/jar.usdz',
+                audio: 'models/jar/jar.mp3',
+                metadata: {
+                    museum: 'Natural History Museum of Los Angeles County',
+                    accession: 'NHMLAC 2024.002',
+                    description: 'A ceramic jar representing traditional pottery techniques from the Bears Ears region. The vessel exhibits characteristic construction methods and surface treatments typical of the area\'s cultural heritage.'
+                }
+            },
+            {
+                name: 'Mug',
+                url: 'models/mug/Mug.glb',
+                iosUrl: 'models/mug/Mug.usdz',
+                audio: 'models/mug/Mug.mp3',
+                metadata: {
+                    museum: 'Natural History Museum of Los Angeles County',
+                    accession: 'NHMLAC 2024.003',
+                    description: 'A ceramic mug demonstrating functional pottery design and construction. This piece illustrates everyday utilitarian objects and their role in material culture studies.'
+                }
+            }
+        ];
+
+        const modelLibrary = document.getElementById('modelLibrary');
+        const viewer = document.getElementById('viewer');
+        const placeholder = document.getElementById('placeholder');
+        const audioPlayer = document.getElementById('audioPlayer');
+        const audioControls = document.getElementById('audioControls');
+        const playAudioButton = document.getElementById('playAudioButton');
+        const modelDescription = document.getElementById('modelDescription');
+        const descriptionTitle = document.getElementById('descriptionTitle');
+        const metadataMuseum = document.getElementById('metadataMuseum');
+        const metadataAccession = document.getElementById('metadataAccession');
+        const metadataDescription = document.getElementById('metadataDescription');
+        let selectedModel = null;
+
+        // Create model cards
+        models.forEach((model, index) => {
+            const card = document.createElement('div');
+            card.className = 'model-card';
+            card.innerHTML = `
+                <div class="model-info">
+                    <div class="model-name">${model.name}</div>
+                    <div class="model-preview-label">Tap to preview</div>
+                </div>
+            `;
+            
+            card.addEventListener('click', () => {
+                selectModel(index, card);
+            });
+            
+            modelLibrary.appendChild(card);
+        });
+
+        function selectModel(index, cardElement) {
+            // Remove previous selection
+            document.querySelectorAll('.model-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            
+            // Select new model
+            cardElement.classList.add('selected');
+            selectedModel = models[index];
+            
+            // Hide placeholder and show viewer
+            placeholder.style.display = 'none';
+            viewer.style.display = 'block';
+            
+            // Show and update metadata description
+            modelDescription.style.display = 'block';
+            descriptionTitle.textContent = selectedModel.name;
+            metadataMuseum.textContent = selectedModel.metadata.museum;
+            metadataAccession.textContent = selectedModel.metadata.accession;
+            metadataDescription.textContent = selectedModel.metadata.description;
+            
+            // Load the model for 3D preview
+            viewer.src = selectedModel.url;
+            
+            // Set iOS-specific AR source if provided (for USDZ files)
+            if (selectedModel.iosUrl) {
+                viewer.setAttribute('ios-src', selectedModel.iosUrl);
+            } else {
+                viewer.removeAttribute('ios-src');
+            }
+            
+            // Handle audio button visibility
+            if (selectedModel.audio) {
+                audioPlayer.src = selectedModel.audio;
+                playAudioButton.classList.add('active');
+                audioControls.classList.remove('active');
+            } else {
+                audioPlayer.pause();
+                audioPlayer.src = '';
+                playAudioButton.classList.remove('active');
+                audioControls.classList.remove('active');
+            }
+        }
+
+        // Play Audio button click handler
+        playAudioButton.addEventListener('click', () => {
+            if (selectedModel && selectedModel.audio) {
+                audioControls.classList.add('active');
+                audioPlayer.play().catch(err => {
+                    console.log('Audio play prevented:', err);
+                });
+            }
+        });
+
+        // Add loading indicator
+        viewer.addEventListener('load', () => {
+            console.log('Model loaded successfully');
+        });
+
+        viewer.addEventListener('error', (event) => {
+            console.error('Error loading model:', event);
+            alert('Error loading 3D model. Please try another one.');
+        });
+    </script>
+</body>
+</html>
