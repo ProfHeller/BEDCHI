@@ -174,10 +174,9 @@
                 touch-action="pan-y"
                 auto-rotate
                 ar
-                ar-modes="webxr scene-viewer quick-look"
+                ar-modes="scene-viewer quick-look"
                 shadow-intensity="1"
-                environment-image="neutral"
-                exposure="1">
+                shadow-softness="1">
                 <button slot="ar-button" class="ar-button">
                     📱 View in AR
                 </button>
@@ -257,9 +256,6 @@
             
             // Load the model
             viewer.src = selectedModel.url;
-            
-            // Set iOS Quick Look source for AR
-            viewer.setAttribute('ios-src', selectedModel.url);
         }
 
         // Add loading indicator
