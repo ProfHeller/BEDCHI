@@ -301,29 +301,29 @@
     <script>
         // Library of 3D models
         // For USDZ files: provide the filename you uploaded to GitHub
-        // The 'url' is used for browser 3D preview
-        // The 'iosUrl' (if provided) is used specifically for AR on iOS
+        // The 'url' is used for browser 3D preview (use GLB for best results)
+        // The 'iosUrl' (if provided) is used specifically for AR on iOS (use USDZ)
         // The 'audio' (optional) is the audio file to play when model loads
         // The 'description' appears in the right column when model is selected
         const models = [
             {
                 name: 'Bird',
-                url: 'bird.usdz',
-                iosUrl: 'bird.usdz',
+                url: 'bird.glb',        // GLB for smooth browser preview
+                iosUrl: 'bird.usdz',    // USDZ for iOS AR
                 audio: null,
                 description: 'A beautiful 3D bird model. View it in AR to see it come to life in your space. Perfect for educational demonstrations or wildlife presentations.'
             },
             {
                 name: 'Jar',
-                url: 'jar.usdz',
+                url: 'jar.usdz',        // Will try USDZ (convert to GLB if preview doesn't work)
                 iosUrl: 'jar.usdz',
                 audio: null,
                 description: 'A ceramic jar rendered in detailed 3D. Examine this artifact from all angles and place it in your environment to see it at full scale.'
             },
             {
                 name: 'Mug',
-                url: 'Mug.usdz',
-                iosUrl: 'Mug.usdz',
+                url: 'Mug.glb',         // GLB for smooth browser preview
+                iosUrl: 'Mug.usdz',     // USDZ for iOS AR
                 audio: 'Mug.mp3',
                 description: 'A classic coffee mug rendered in 3D. Place it on your desk or table in AR and hear an audio description. Great for demonstrating everyday objects in augmented reality.'
             }
