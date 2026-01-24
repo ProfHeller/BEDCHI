@@ -14,132 +14,194 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: #000000;
+            color: #ffffff;
             min-height: 100vh;
-            padding: 20px;
         }
 
         .container {
-            max-width: 800px;
+            max-width: 1400px;
             margin: 0 auto;
+            padding: 20px;
+        }
+
+        .site-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px 20px;
+        }
+
+        .logo {
+            max-width: 600px;
+            width: 100%;
+            height: auto;
+            filter: invert(1); /* Inverts the logo to white for black background */
         }
 
         h1 {
             color: white;
             text-align: center;
-            margin-bottom: 30px;
-            font-size: 2em;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            margin-bottom: 40px;
+            font-size: 2.5em;
+            font-weight: 700;
+            letter-spacing: -1px;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 400px 1fr;
+            gap: 30px;
+            align-items: start;
         }
 
         .model-library {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 15px;
-            margin-bottom: 30px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 20px;
+            max-height: calc(100vh - 40px);
+            overflow-y: auto;
+        }
+
+        .model-library h2 {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+            color: #ffffff;
+            font-weight: 600;
         }
 
         .model-card {
-            background: white;
-            border-radius: 15px;
-            padding: 15px;
-            text-align: center;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 15px;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .model-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+            background: rgba(255, 255, 255, 0.12);
+            border-color: rgba(255, 255, 255, 0.3);
+            transform: translateX(5px);
         }
 
         .model-card.selected {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
+            border-color: #667eea;
+            box-shadow: 0 4px 20px rgba(102, 126, 234, 0.4);
         }
 
-        .model-icon {
-            font-size: 3em;
-            margin-bottom: 10px;
+        .model-info {
+            flex-grow: 1;
         }
 
         .model-name {
             font-weight: 600;
-            font-size: 0.9em;
+            font-size: 1.2em;
+            margin-bottom: 5px;
+        }
+
+        .model-preview-label {
+            font-size: 0.85em;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .viewer-section {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
         }
 
         .viewer-container {
-            background: white;
-            border-radius: 20px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
             padding: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
             min-height: 500px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         model-viewer {
             width: 100%;
-            height: 450px;
+            height: 500px;
             border-radius: 10px;
-            background: #f5f5f5;
+            background: transparent;
         }
 
         .placeholder {
             text-align: center;
-            color: #999;
+            color: rgba(255, 255, 255, 0.5);
             padding: 40px;
         }
 
         .placeholder-icon {
-            font-size: 4em;
+            font-size: 5em;
             margin-bottom: 20px;
+            opacity: 0.3;
         }
 
-        .instructions {
-            background: rgba(255,255,255,0.9);
-            border-radius: 10px;
-            padding: 15px;
-            margin-bottom: 20px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-
-        .instructions h3 {
-            color: #667eea;
+        .placeholder h2 {
+            font-size: 1.8em;
             margin-bottom: 10px;
-            font-size: 1.1em;
+            font-weight: 600;
         }
 
-        .instructions p {
-            color: #666;
-            font-size: 0.9em;
-            line-height: 1.5;
+        .placeholder p {
+            font-size: 1.1em;
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .model-description {
+            margin-top: 25px;
+            padding: 25px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .model-description h3 {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            color: #667eea;
+            font-weight: 600;
+        }
+
+        .model-description p {
+            font-size: 1.1em;
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.8);
         }
 
         .ar-button {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             border: none;
-            padding: 15px 30px;
-            font-size: 1.1em;
+            padding: 18px 40px;
+            font-size: 1.2em;
             border-radius: 30px;
             cursor: pointer;
-            margin-top: 15px;
+            margin-top: 20px;
             font-weight: 600;
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 4px 20px rgba(102, 126, 234, 0.4);
             transition: all 0.3s ease;
         }
 
         .ar-button:hover {
             transform: scale(1.05);
-            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+            box-shadow: 0 6px 25px rgba(102, 126, 234, 0.6);
         }
 
         .audio-controls {
-            margin-top: 15px;
+            margin-top: 20px;
             display: none;
         }
 
@@ -149,55 +211,89 @@
 
         audio {
             width: 100%;
-            max-width: 300px;
+            max-width: 400px;
+            border-radius: 10px;
+        }
+
+        @media (max-width: 1024px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+
+            .model-library {
+                position: static;
+                max-height: none;
+            }
+
+            .logo {
+                max-width: 90%;
+            }
         }
 
         @media (max-width: 600px) {
-            .model-library {
-                grid-template-columns: repeat(2, 1fr);
+            .logo {
+                max-width: 100%;
             }
-            
-            h1 {
-                font-size: 1.5em;
+
+            .site-header {
+                padding: 20px 10px;
+                margin-bottom: 30px;
+            }
+
+            .model-card {
+                padding: 15px;
+            }
+
+            .model-name {
+                font-size: 1.1em;
             }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>📱 AR Model Viewer</h1>
+        <header class="site-header">
+            <img src="bedchi-logo.png" alt="BEDChI - Bears Ears Digital Cultural Heritage Initiative" class="logo">
+        </header>
         
-        <div class="instructions">
-            <h3>How to use:</h3>
-            <p>1. Select a 3D model from the library below<br>
-            2. View it in 3D by rotating and zooming<br>
-            3. Tap "View in AR" to see it in your space (iOS 12+ with AR support)</p>
-        </div>
-
-        <div class="model-library" id="modelLibrary"></div>
-
-        <div class="viewer-container">
-            <div id="placeholder" class="placeholder">
-                <div class="placeholder-icon">🎨</div>
-                <h2>Select a model to begin</h2>
-                <p>Choose from the library above to view in 3D and AR</p>
+        <div class="main-content">
+            <!-- Left Column: Model Library -->
+            <div class="model-library">
+                <h2>Model Library</h2>
+                <div id="modelLibrary"></div>
             </div>
-            <model-viewer id="viewer" 
-                style="display: none;"
-                camera-controls 
-                touch-action="pan-y"
-                auto-rotate
-                ar
-                ar-modes="scene-viewer quick-look"
-                shadow-intensity="1"
-                shadow-softness="1"
-                ar-placement="floor">
-                <button slot="ar-button" class="ar-button">
-                    📱 View in AR
-                </button>
-            </model-viewer>
-            <div id="audioControls" class="audio-controls">
-                <audio id="audioPlayer" controls></audio>
+
+            <!-- Right Column: Viewer and Description -->
+            <div class="viewer-section">
+                <div class="viewer-container">
+                    <div id="placeholder" class="placeholder">
+                        <div class="placeholder-icon">🎨</div>
+                        <h2>Select a model to begin</h2>
+                        <p>Choose from the library to view in 3D and AR</p>
+                    </div>
+                    <model-viewer id="viewer" 
+                        style="display: none;"
+                        camera-controls 
+                        touch-action="pan-y"
+                        auto-rotate
+                        ar
+                        ar-modes="scene-viewer quick-look"
+                        shadow-intensity="1"
+                        shadow-softness="1"
+                        ar-placement="floor">
+                        <button slot="ar-button" class="ar-button">
+                            📱 View in AR
+                        </button>
+                    </model-viewer>
+                    <div id="audioControls" class="audio-controls">
+                        <audio id="audioPlayer" controls></audio>
+                    </div>
+                </div>
+                
+                <div id="modelDescription" class="model-description" style="display: none;">
+                    <h3 id="descriptionTitle"></h3>
+                    <p id="descriptionText"></p>
+                </div>
             </div>
         </div>
     </div>
@@ -208,27 +304,28 @@
         // The 'url' is used for browser 3D preview
         // The 'iosUrl' (if provided) is used specifically for AR on iOS
         // The 'audio' (optional) is the audio file to play when model loads
+        // The 'description' appears in the right column when model is selected
         const models = [
             {
                 name: 'Bird',
-                icon: '🐦',
                 url: 'bird.usdz',
                 iosUrl: 'bird.usdz',
-                audio: null  // No audio for this model yet
+                audio: null,
+                description: 'A beautiful 3D bird model. View it in AR to see it come to life in your space. Perfect for educational demonstrations or wildlife presentations.'
             },
             {
-                name: 'Fossil',
-                icon: '🦴',
-                url: 'F.A.1995.77-94_raw_ObjectMaskOn.usdz',
-                iosUrl: 'F.A.1995.77-94_raw_ObjectMaskOn.usdz',
-                audio: null  // No audio for this model
+                name: 'Jar',
+                url: 'jar.usdz',
+                iosUrl: 'jar.usdz',
+                audio: null,
+                description: 'A ceramic jar rendered in detailed 3D. Examine this artifact from all angles and place it in your environment to see it at full scale.'
             },
             {
                 name: 'Mug',
-                icon: '☕',
                 url: 'Mug.usdz',
                 iosUrl: 'Mug.usdz',
-                audio: 'Mug.mp3'  // Plays "This is a mug"
+                audio: 'Mug.mp3',
+                description: 'A classic coffee mug rendered in 3D. Place it on your desk or table in AR and hear an audio description. Great for demonstrating everyday objects in augmented reality.'
             }
         ];
 
@@ -237,6 +334,9 @@
         const placeholder = document.getElementById('placeholder');
         const audioPlayer = document.getElementById('audioPlayer');
         const audioControls = document.getElementById('audioControls');
+        const modelDescription = document.getElementById('modelDescription');
+        const descriptionTitle = document.getElementById('descriptionTitle');
+        const descriptionText = document.getElementById('descriptionText');
         let selectedModel = null;
 
         // Create model cards
@@ -244,8 +344,10 @@
             const card = document.createElement('div');
             card.className = 'model-card';
             card.innerHTML = `
-                <div class="model-icon">${model.icon}</div>
-                <div class="model-name">${model.name}</div>
+                <div class="model-info">
+                    <div class="model-name">${model.name}</div>
+                    <div class="model-preview-label">Tap to preview</div>
+                </div>
             `;
             
             card.addEventListener('click', () => {
@@ -268,6 +370,11 @@
             // Hide placeholder and show viewer
             placeholder.style.display = 'none';
             viewer.style.display = 'block';
+            
+            // Show and update description
+            modelDescription.style.display = 'block';
+            descriptionTitle.textContent = selectedModel.name;
+            descriptionText.textContent = selectedModel.description;
             
             // Load the model for 3D preview
             viewer.src = selectedModel.url;
