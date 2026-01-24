@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AR Model Viewer</title>
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.3.0/model-viewer.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            color: white;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .model-library {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .model-card {
+            background: white;
+            border-radius: 15px;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .model-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+        }
+
+        .model-card.selected {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .model-icon {
+            font-size: 3em;
+            margin-bottom: 10px;
+        }
+
+        .model-name {
+            font-weight: 600;
+            font-size: 0.9em;
+        }
+
+        .viewer-container {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            min-height: 500px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        model-viewer {
+            width: 100%;
+            height: 450px;
+            border-radius: 10px;
+            background: #f5f5f5;
+        }
+
+        .placeholder {
+            text-align: center;
+            color: #999;
+            padding: 40px;
+        }
+
+        .placeholder-icon {
+            font-size: 4em;
+            margin-bottom: 20px;
+        }
+
+        .instructions {
+            background: rgba(255,255,255,0.9);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .instructions h3 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .instructions p {
+            color: #666;
+            font-size: 0.9em;
+            line-height: 1.5;
+        }
+
+        .ar-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.1em;
+            border-radius: 30px;
+            cursor: pointer;
+            margin-top: 15px;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .ar-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
+
+        @media (max-width: 600px) {
+            .model-library {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            h1 {
+                font-size: 1.5em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📱 AR Model Viewer</h1>
+        
+        <div class="instructions">
+            <h3>How to use:</h3>
+            <p>1. Select a 3D model from the library below<br>
+            2. View it in 3D by rotating and zooming<br>
+            3. Tap "View in AR" to see it in your space (iOS 12+ with AR support)</p>
+        </div>
+
+        <div class="model-library" id="modelLibrary"></div>
+
+        <div class="viewer-container">
+            <div id="placeholder" class="placeholder">
+                <div class="placeholder-icon">🎨</div>
+                <h2>Select a model to begin</h2>
+                <p>Choose from the library above to view in 3D and AR</p>
+            </div>
+            <model-viewer id="viewer" 
+                style="display: none;"
+                camera-controls 
+                touch-action="pan-y"
+                auto-rotate
+                ar
+                ar-modes="webxr scene-viewer quick-look"
+                shadow-intensity="1"
+                environment-image="neutral"
+                exposure="1">
+                <button slot="ar-button" class="ar-button">
+                    📱 View in AR
+                </button>
+            </model-viewer>
+        </div>
+    </div>
+
+    <script>
+        // Library of 3D models (using free models from the web)
+        const models = [
+            {
+                name: 'Astronaut',
+                icon: '👨‍🚀',
+                url: 'https://modelviewer.dev/shared-assets/models/Astronaut.glb'
+            },
+            {
+                name: 'Robot',
+                icon: '🤖',
+                url: 'https://modelviewer.dev/shared-assets/models/RobotExpressive.glb'
+            },
+            {
+                name: 'Horse',
+                icon: '🐴',
+                url: 'https://modelviewer.dev/shared-assets/models/Horse.glb'
+            },
+            {
+                name: 'Helmet',
+                icon: '⛑️',
+                url: 'https://modelviewer.dev/shared-assets/models/NeilArmstrong.glb'
+            },
+            {
+                name: 'Chair',
+                icon: '🪑',
+                url: 'https://modelviewer.dev/shared-assets/models/MaterialsVariantsChair.glb'
+            },
+            {
+                name: 'Shoe',
+                icon: '👟',
+                url: 'https://modelviewer.dev/shared-assets/models/MaterialsVariantsShoe.glb'
+            }
+        ];
+
+        const modelLibrary = document.getElementById('modelLibrary');
+        const viewer = document.getElementById('viewer');
+        const placeholder = document.getElementById('placeholder');
+        let selectedModel = null;
+
+        // Create model cards
+        models.forEach((model, index) => {
+            const card = document.createElement('div');
+            card.className = 'model-card';
+            card.innerHTML = `
+                <div class="model-icon">${model.icon}</div>
+                <div class="model-name">${model.name}</div>
+            `;
+            
+            card.addEventListener('click', () => {
+                selectModel(index, card);
+            });
+            
+            modelLibrary.appendChild(card);
+        });
+
+        function selectModel(index, cardElement) {
+            // Remove previous selection
+            document.querySelectorAll('.model-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            
+            // Select new model
+            cardElement.classList.add('selected');
+            selectedModel = models[index];
+            
+            // Hide placeholder and show viewer
+            placeholder.style.display = 'none';
+            viewer.style.display = 'block';
+            
+            // Load the model
+            viewer.src = selectedModel.url;
+            
+            // Set iOS Quick Look source for AR
+            viewer.setAttribute('ios-src', selectedModel.url);
+        }
+
+        // Add loading indicator
+        viewer.addEventListener('load', () => {
+            console.log('Model loaded successfully');
+        });
+
+        viewer.addEventListener('error', (event) => {
+            console.error('Error loading model:', event);
+            alert('Error loading 3D model. Please try another one.');
+        });
+    </script>
+</body>
+</html>
