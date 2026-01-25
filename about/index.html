@@ -19,43 +19,53 @@
         }
 
         nav {
-            background: rgba(255, 255, 255, 0.05);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 15px 0;
-            backdrop-filter: blur(10px);
+            background: rgba(0, 0, 0, 0.95);
+            border-bottom: 1px solid rgba(102, 126, 234, 0.3);
+            padding: 0;
+            backdrop-filter: blur(20px);
             position: sticky;
             top: 0;
             z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
         }
 
         .nav-container {
             max-width: 1400px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 0 40px;
             display: flex;
             justify-content: center;
-            gap: 30px;
-            flex-wrap: wrap;
+            align-items: center;
+            gap: 0;
+            height: 70px;
         }
 
         .nav-link {
-            color: rgba(255, 255, 255, 0.8);
+            color: rgba(255, 255, 255, 0.7);
             text-decoration: none;
-            font-size: 1em;
+            font-size: 0.85em;
             font-weight: 500;
-            padding: 8px 20px;
-            border-radius: 20px;
+            padding: 0 30px;
             transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            display: inline-block;
+            height: 70px;
+            line-height: 70px;
         }
 
         .nav-link:hover {
-            background: rgba(102, 126, 234, 0.2);
             color: #ffffff;
+            background: rgba(102, 126, 234, 0.1);
+            border-bottom-color: rgba(102, 126, 234, 0.5);
         }
 
         .nav-link.active {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: #ffffff;
+            background: rgba(102, 126, 234, 0.15);
+            border-bottom-color: #667eea;
+            font-weight: 600;
         }
 
         .container {
@@ -123,6 +133,19 @@
         }
 
         @media (max-width: 768px) {
+            .nav-container {
+                padding: 0;
+                height: auto;
+                flex-wrap: wrap;
+            }
+
+            .nav-link {
+                padding: 18px 20px;
+                font-size: 0.75em;
+                height: auto;
+                line-height: normal;
+            }
+
             .logo {
                 max-width: 100%;
             }
@@ -182,20 +205,17 @@
         <div class="content-section">
             <h2>Our Mission</h2>
             <p>
-                Our mission is to make cultural heritage accessible to everyone while preserving the integrity and context of these important artifacts. Through AR technology, we enable people to interact with and learn about these objects in ways that traditional displays cannot provide.
-            </p>
-            <p>
-                We work closely with indigenous communities, museums, and researchers to ensure that cultural heritage is presented respectfully and accurately, honoring the traditions and knowledge of the peoples who created these objects.
+                BEDCHI's mission is to document and preserve cultural heritage sites and landscapes through collaborative digital documentation, supporting Indigenous interpretive authority and fostering shared understanding through community-engaged research and education.
             </p>
         </div>
 
         <div class="content-section">
             <h2>Technology & Approach</h2>
             <p>
-                Our team uses advanced 3D scanning techniques to capture high-resolution digital models of artifacts. These models preserve fine details that might be lost over time and allow for non-invasive study and analysis.
+                BEDCHI uses a collaborative workshop-based field-to-immersive workflow that moves from rapid, high-resolution 3D capture, visualization, interpretive experiences development. In the field, teams document cultural materials and landscapes using photogrammetry, 360° imagery. Back in the lab, models are processed and optimized for long-term archiving and real-time rendering.
             </p>
             <p>
-                By combining these 3D models with augmented reality technology, we create immersive educational experiences that bring cultural heritage to life on any smartphone or tablet. Users can examine artifacts from all angles, place them in their own environment, and learn about their historical and cultural significance.
+                Those assets are then assembled into interactive prototypes that connect interpretive content (audio/visual recordings featuring community-provided context) so the same dataset can support research, conservation efforts, teaching, outreach, and public engagement. BEDCHI is achieved through hands-on workshops that emphasize reproducible methods, collaborative review, ethically grounded work, and indigenous interpretive sovereignty, from capture through publication.
             </p>
         </div>
     </div>
