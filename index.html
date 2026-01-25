@@ -93,14 +93,7 @@
             max-width: 500px;
             width: 100%;
             height: auto;
-            filter: invert(1); /* Inverts the logo to white for black background */
-        }
-
-        .nhmlac-logo {
-            max-width: 200px;
-            width: 100%;
-            height: auto;
-            filter: invert(1); /* Inverts the logo to white for black background */
+            filter: invert(1) sepia(1) saturate(3) hue-rotate(330deg) brightness(1.1);
         }
 
         .instructions-banner {
@@ -177,6 +170,39 @@
             font-size: 1.2em;
             margin-bottom: 20px;
             color: #ffffff;
+            font-weight: 600;
+        }
+
+        .culture-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .culture-tab {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: rgba(255, 255, 255, 0.6);
+            padding: 10px 15px;
+            border-radius: 6px;
+            font-size: 0.85em;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .culture-tab:hover {
+            background: rgba(255, 255, 255, 0.06);
+            color: rgba(255, 255, 255, 0.8);
+            border-color: rgba(255, 126, 34, 0.3);
+        }
+
+        .culture-tab.active {
+            background: rgba(255, 126, 34, 0.2);
+            border-color: rgba(255, 126, 34, 0.5);
+            color: #ff7e22;
             font-weight: 600;
         }
 
@@ -427,10 +453,6 @@
                 max-width: 90%;
             }
 
-            .nhmlac-logo {
-                max-width: 150px;
-            }
-
             .logo-container {
                 gap: 30px;
             }
@@ -454,13 +476,8 @@
                 max-width: 100%;
             }
 
-            .nhmlac-logo {
-                max-width: 120px;
-            }
-
             .logo-container {
                 gap: 20px;
-                flex-direction: column;
             }
 
             .site-header {
@@ -512,7 +529,6 @@
         <header class="site-header">
             <div class="logo-container">
                 <img src="bedchi-logo.png" alt="BEDCHI - Bears Ears Digital Cultural Heritage Initiative" class="logo">
-                <img src="nhmlac-logo.png" alt="Natural History Museum of Los Angeles County" class="nhmlac-logo">
             </div>
         </header>
 
@@ -530,9 +546,14 @@
             <!-- Left Column: Model Library -->
             <div class="model-library">
                 <h2>BEDCHI Digital Archive</h2>
+                <div class="culture-tabs">
+                    <button class="culture-tab active" data-culture="all">All Cultures</button>
+                    <button class="culture-tab" data-culture="navajo">Navajo</button>
+                    <button class="culture-tab" data-culture="zuni">Zuni</button>
+                </div>
                 <div class="category-tabs">
                     <button class="category-tab active" data-category="objects">Objects</button>
-                    <button class="category-tab" data-category="sites">Sites/Landscapes</button>
+                    <button class="category-tab" data-category="sites">Sites and Landscapes</button>
                 </div>
                 <div id="modelLibrary"></div>
             </div>
@@ -571,13 +592,13 @@
                 
                 <div id="modelDescription" class="model-description" style="display: none;">
                     <h3 id="descriptionTitle"></h3>
-                    <div class="metadata-field">
-                        <div class="metadata-label">Museum</div>
-                        <div class="metadata-value" id="metadataMuseum"></div>
+                    <div class="metadata-field" id="metadataField1">
+                        <div class="metadata-label" id="metadataLabel1"></div>
+                        <div class="metadata-value" id="metadataValue1"></div>
                     </div>
-                    <div class="metadata-field">
-                        <div class="metadata-label">Accession Number</div>
-                        <div class="metadata-value" id="metadataAccession"></div>
+                    <div class="metadata-field" id="metadataField2">
+                        <div class="metadata-label" id="metadataLabel2"></div>
+                        <div class="metadata-value" id="metadataValue2"></div>
                     </div>
                     <div class="metadata-description" id="metadataDescription"></div>
                 </div>
@@ -596,6 +617,7 @@
             {
                 name: 'Bird',
                 category: 'objects',
+                culture: 'zuni',
                 url: 'models/bird/bird.glb',
                 iosUrl: 'models/bird/bird.usdz',
                 audio: 'models/bird/bird.mp3',
@@ -608,6 +630,7 @@
             {
                 name: 'Jar',
                 category: 'objects',
+                culture: 'zuni',
                 url: 'models/jar/jar.glb',
                 iosUrl: 'models/jar/jar.usdz',
                 audio: 'models/jar/jar.mp3',
@@ -620,6 +643,7 @@
             {
                 name: 'Mug',
                 category: 'objects',
+                culture: 'zuni',
                 url: 'models/mug/Mug.glb',
                 iosUrl: 'models/mug/Mug.usdz',
                 audio: 'models/mug/Mug.mp3',
@@ -632,6 +656,7 @@
             {
                 name: 'Tarus',
                 category: 'objects',
+                culture: 'zuni',
                 url: 'models/tarus/tarus.glb',
                 iosUrl: 'models/tarus/tarus.usdz',
                 audio: 'models/tarus/tarus.mp3',
@@ -644,6 +669,7 @@
             {
                 name: 'Bear',
                 category: 'objects',
+                culture: 'zuni',
                 url: 'models/bear/bear.glb',
                 iosUrl: 'models/bear/bear.usdz',
                 audio: 'models/bear/bear.mp3',
@@ -656,12 +682,13 @@
             {
                 name: 'Rock Info',
                 category: 'sites',
+                culture: 'zuni',
                 url: 'models/rock-info/rock-info.glb',
                 iosUrl: 'models/rock-info/rock-info.usdz',
                 audio: 'models/rock-info/rock-info.mp3',
                 metadata: {
-                    museum: 'Natural History Museum of Los Angeles County',
-                    accession: 'NHMLAC 2024.005',
+                    location: 'Bears Ears National Monument, Utah',
+                    date: '2024',
                     description: 'A 3D model of a culturally significant rock formation or landscape feature from the Bears Ears region. This digital documentation preserves the spatial context and geological characteristics of the site.'
                 }
             }
@@ -675,11 +702,29 @@
         const playAudioButton = document.getElementById('playAudioButton');
         const modelDescription = document.getElementById('modelDescription');
         const descriptionTitle = document.getElementById('descriptionTitle');
-        const metadataMuseum = document.getElementById('metadataMuseum');
-        const metadataAccession = document.getElementById('metadataAccession');
+        const metadataLabel1 = document.getElementById('metadataLabel1');
+        const metadataValue1 = document.getElementById('metadataValue1');
+        const metadataLabel2 = document.getElementById('metadataLabel2');
+        const metadataValue2 = document.getElementById('metadataValue2');
         const metadataDescription = document.getElementById('metadataDescription');
         let selectedModel = null;
         let currentCategory = 'objects';
+        let currentCulture = 'all';
+
+        // Culture tab switching
+        document.querySelectorAll('.culture-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Update active tab
+                document.querySelectorAll('.culture-tab').forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                
+                // Update current culture
+                currentCulture = tab.dataset.culture;
+                
+                // Re-render model library
+                renderModels();
+            });
+        });
 
         // Category tab switching
         document.querySelectorAll('.category-tab').forEach(tab => {
@@ -700,9 +745,13 @@
             // Clear current models
             modelLibrary.innerHTML = '';
             
-            // Filter and display models for current category
+            // Filter models by both category and culture
             models
-                .filter(model => model.category === currentCategory)
+                .filter(model => {
+                    const matchesCategory = model.category === currentCategory;
+                    const matchesCulture = currentCulture === 'all' || model.culture === currentCulture;
+                    return matchesCategory && matchesCulture;
+                })
                 .forEach((model, filteredIndex) => {
                     const originalIndex = models.indexOf(model);
                     const card = document.createElement('div');
@@ -743,19 +792,38 @@
             // Show and update metadata description
             modelDescription.style.display = 'block';
             descriptionTitle.textContent = selectedModel.name;
-            metadataMuseum.textContent = selectedModel.metadata.museum;
-            metadataAccession.textContent = selectedModel.metadata.accession;
+            
+            // Display different metadata based on category
+            if (selectedModel.category === 'sites') {
+                // Sites and Landscapes: Location and Date
+                metadataLabel1.textContent = 'LOCATION';
+                metadataValue1.textContent = selectedModel.metadata.location || '';
+                metadataLabel2.textContent = 'DATE';
+                metadataValue2.textContent = selectedModel.metadata.date || '';
+            } else {
+                // Objects: Museum and Accession Number
+                metadataLabel1.textContent = 'MUSEUM';
+                metadataValue1.textContent = selectedModel.metadata.museum || '';
+                metadataLabel2.textContent = 'ACCESSION NUMBER';
+                metadataValue2.textContent = selectedModel.metadata.accession || '';
+            }
+            
             metadataDescription.textContent = selectedModel.metadata.description;
             
-            // Load the model for 3D preview
-            viewer.src = selectedModel.url;
+            // Clear the viewer before loading new model
+            viewer.src = '';
+            viewer.removeAttribute('ios-src');
             
-            // Set iOS-specific AR source if provided (for USDZ files)
-            if (selectedModel.iosUrl) {
-                viewer.setAttribute('ios-src', selectedModel.iosUrl);
-            } else {
-                viewer.removeAttribute('ios-src');
-            }
+            // Small delay to ensure viewer is cleared before loading new model
+            setTimeout(() => {
+                // Load the model for 3D preview
+                viewer.src = selectedModel.url;
+                
+                // Set iOS-specific AR source if provided (for USDZ files)
+                if (selectedModel.iosUrl) {
+                    viewer.setAttribute('ios-src', selectedModel.iosUrl);
+                }
+            }, 50);
             
             // Handle audio button visibility
             if (selectedModel.audio) {
