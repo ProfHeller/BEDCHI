@@ -19,43 +19,53 @@
         }
 
         nav {
-            background: rgba(255, 255, 255, 0.05);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 15px 0;
-            backdrop-filter: blur(10px);
+            background: rgba(0, 0, 0, 0.95);
+            border-bottom: 1px solid rgba(102, 126, 234, 0.3);
+            padding: 0;
+            backdrop-filter: blur(20px);
             position: sticky;
             top: 0;
             z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
         }
 
         .nav-container {
             max-width: 1400px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 0 40px;
             display: flex;
             justify-content: center;
-            gap: 30px;
-            flex-wrap: wrap;
+            align-items: center;
+            gap: 0;
+            height: 70px;
         }
 
         .nav-link {
-            color: rgba(255, 255, 255, 0.8);
+            color: rgba(255, 255, 255, 0.7);
             text-decoration: none;
-            font-size: 1em;
+            font-size: 0.85em;
             font-weight: 500;
-            padding: 8px 20px;
-            border-radius: 20px;
+            padding: 0 30px;
             transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            display: inline-block;
+            height: 70px;
+            line-height: 70px;
         }
 
         .nav-link:hover {
-            background: rgba(102, 126, 234, 0.2);
             color: #ffffff;
+            background: rgba(102, 126, 234, 0.1);
+            border-bottom-color: rgba(102, 126, 234, 0.5);
         }
 
         .nav-link.active {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: #ffffff;
+            background: rgba(102, 126, 234, 0.15);
+            border-bottom-color: #667eea;
+            font-weight: 600;
         }
 
         .container {
@@ -152,7 +162,98 @@
             color: #764ba2;
         }
 
+        .feedback-form {
+            margin-top: 25px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.95em;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            color: #ffffff;
+            font-size: 1em;
+            font-family: inherit;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            background: rgba(255, 255, 255, 0.08);
+            border-color: #667eea;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .submit-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #ffffff;
+            border: none;
+            padding: 14px 40px;
+            border-radius: 8px;
+            font-size: 1.05em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .submit-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .submit-button:active {
+            transform: translateY(0);
+        }
+
+        @media (max-width: 1024px) {
+            .logo {
+                max-width: 90%;
+            }
+
+            .nhmlac-logo {
+                max-width: 150px;
+            }
+
+            .logo-container {
+                gap: 30px;
+            }
+        }
+
         @media (max-width: 768px) {
+            .nav-container {
+                padding: 0;
+                height: auto;
+                flex-wrap: wrap;
+            }
+
+            .nav-link {
+                padding: 18px 20px;
+                font-size: 0.75em;
+                height: auto;
+                line-height: normal;
+            }
+
             .logo {
                 max-width: 100%;
             }
@@ -207,47 +308,37 @@
                 <div class="contact-item">
                     <span class="contact-label">Email:</span>
                     <span class="contact-value">
-                        <a href="/cdn-cgi/l/email-protection#335a5d555c73515657505b5a1d5c4154"><span class="__cf_email__" data-cfemail="1d74737b725d7f78797e757433726f7a">[email&#160;protected]</span></a>
-                    </span>
-                </div>
-
-                <div class="contact-item">
-                    <span class="contact-label">Phone:</span>
-                    <span class="contact-value">(555) 123-4567</span>
-                </div>
-
-                <div class="contact-item">
-                    <span class="contact-label">Address:</span>
-                    <span class="contact-value">
-                        Natural History Museum of Los Angeles County<br>
-                        900 Exposition Blvd<br>
-                        Los Angeles, CA 90007
+                        <a href="/cdn-cgi/l/email-protection#aacfd8c3c9c2cfc6c6eadfd9c984cfcedf"><span class="__cf_email__" data-cfemail="bcd9ced5dfd4d9d0d0fcc9cfdf92d9d8c9">[email&#160;protected]</span></a>
                     </span>
                 </div>
             </div>
         </div>
 
         <div class="contact-section">
-            <h2>Inquiries</h2>
+            <h2>Send Us Feedback</h2>
             <p>
-                For specific questions about:
+                Have questions, comments, or suggestions? Use the form below to send us a message.
             </p>
-            <div class="contact-info">
-                <div class="contact-item">
-                    <span class="contact-label">Research & Collections:</span>
-                    <span class="contact-value">
-                        <a href="/cdn-cgi/l/email-protection#8bf9eef8eeeaf9e8e3cbe9eeefe8e3e2a5e4f9ec"><span class="__cf_email__" data-cfemail="cebcabbdabafbcada68eacabaaada6a7e0a1bca9">[email&#160;protected]</span></a>
-                    </span>
+            
+            <form class="feedback-form" action="https://formspree.io/f/mjgyqayg" method="POST">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" required>
                 </div>
-
-                <div class="contact-item">
-                    <span class="contact-label">Education Programs:</span>
-                    <span class="contact-value">
-                        <a href="/cdn-cgi/l/email-protection#f1949584929085989e9fb1939495929998df9e8396"><span class="__cf_email__" data-cfemail="5e3b3a2b3d3f2a3731301e3c3b3a3d363770312c39">[email&#160;protected]</span></a>
-                    </span>
+                
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
                 </div>
-
-                <div class="contact-item">
-                    <span class="contact-label">Technical Support:</span>
-                    <span class="contact-value">
-                        <a href="/cdn-cgi/l/email-protection#74070104041b060034161110171c1d5a1b0613"><
+                
+                <div class="form-group">
+                    <label for="subject">Subject</label>
+                    <input type="text" id="subject" name="subject" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" rows="6" required></textarea>
+                </div>
+                
+               
