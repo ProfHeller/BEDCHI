@@ -93,7 +93,15 @@
             max-width: 500px;
             width: 100%;
             height: auto;
-            filter: invert(1) sepia(1) saturate(3) hue-rotate(330deg) brightness(1.1);
+            filter: invert(1) sepia(1) saturate(3) hue-rotate(20deg) brightness(1.1);
+        }
+
+        .welcome-text {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.3em;
+            margin-top: 20px;
+            font-weight: 400;
+            letter-spacing: 0.5px;
         }
 
         .instructions-banner {
@@ -294,6 +302,37 @@
             align-items: center;
             justify-content: center;
             border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+        }
+
+        .loading-spinner {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            z-index: 10;
+        }
+
+        .spinner {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 20px;
+            border: 4px solid rgba(255, 255, 255, 0.1);
+            border-top: 4px solid #ff7e22;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .loading-spinner p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.1em;
+            margin: 0;
         }
 
         model-viewer {
@@ -367,6 +406,111 @@
             margin-top: 20px;
             padding-top: 20px;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .scale-bar {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 10px 15px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            z-index: 5;
+        }
+
+        .scale-bar-line {
+            width: 100px;
+            height: 3px;
+            background: #ff7e22;
+            margin-bottom: 5px;
+            position: relative;
+        }
+
+        .scale-bar-line::before,
+        .scale-bar-line::after {
+            content: '';
+            position: absolute;
+            width: 2px;
+            height: 10px;
+            background: #ff7e22;
+            top: -3px;
+        }
+
+        .scale-bar-line::before {
+            left: 0;
+        }
+
+        .scale-bar-line::after {
+            right: 0;
+        }
+
+        .scale-bar-label {
+            font-size: 0.85em;
+            color: rgba(255, 255, 255, 0.9);
+            text-align: center;
+            font-weight: 600;
+        }
+
+        footer {
+            background: rgba(0, 0, 0, 0.95);
+            border-top: 1px solid rgba(102, 126, 234, 0.3);
+            margin-top: 60px;
+            padding: 40px 0 20px;
+        }
+
+        .footer-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 30px;
+        }
+
+        .footer-section h3 {
+            color: #ff7e22;
+            font-size: 1.1em;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.95em;
+            line-height: 1.8;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .footer-section a:hover {
+            color: #667eea;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 20px;
+            text-align: center;
+        }
+
+        .footer-bottom p {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.9em;
+            margin: 5px 0;
+        }
+
+        @media (max-width: 768px) {
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
         }
 
         .ar-button {
@@ -521,6 +665,7 @@
             <a href="about/" class="nav-link">About</a>
             <a href="people/" class="nav-link">People</a>
             <a href="partners/" class="nav-link">Partners</a>
+            <a href="get-involved/" class="nav-link">Get Involved</a>
             <a href="contact/" class="nav-link">Contact</a>
         </div>
     </nav>
@@ -530,6 +675,7 @@
             <div class="logo-container">
                 <img src="bedchi-logo.png" alt="BEDCHI - Bears Ears Digital Cultural Heritage Initiative" class="logo">
             </div>
+            <p class="welcome-text">Welcome to the BEDCHI digital archive</p>
         </header>
 
         <div class="instructions-banner">
@@ -566,6 +712,10 @@
                         <h2>Select a model to begin</h2>
                         <p>Choose from the library to view in 3D and AR</p>
                     </div>
+                    <div id="loadingSpinner" class="loading-spinner" style="display: none;">
+                        <div class="spinner"></div>
+                        <p>Loading model...</p>
+                    </div>
                     <model-viewer id="viewer" 
                         style="display: none;"
                         camera-controls 
@@ -580,6 +730,10 @@
                             📱 View in AR
                         </button>
                     </model-viewer>
+                    <div id="scaleBar" class="scale-bar" style="display: none;">
+                        <div class="scale-bar-line"></div>
+                        <div class="scale-bar-label">Loading scale...</div>
+                    </div>
                     <div class="button-container">
                         <button id="playAudioButton" class="play-audio-button">
                             🔊 Play Audio
@@ -605,6 +759,40 @@
             </div>
         </div>
     </div>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>About BEDCHI</h3>
+                    <p>
+                        The Bears Ears Digital Cultural Heritage Initiative documents and interprets cultural heritage sites and landscapes through 3D scanning, immersive visualization, and community-engaged research in partnership with Indigenous communities, researchers, and land managers.
+                    </p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <a href="index.html">Archive</a>
+                    <a href="about/">About</a>
+                    <a href="people/">People</a>
+                    <a href="partners/">Partners</a>
+                    <a href="get-involved/">Get Involved</a>
+                    <a href="contact/">Contact</a>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact</h3>
+                    <a href="mailto:erichell@usc.edu">erichell@usc.edu</a>
+                    <p style="margin-top: 15px;">
+                        University of Southern California<br>
+                        Department of Anthropology
+                    </p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Bears Ears Digital Cultural Heritage Initiative. All rights reserved.</p>
+                <p>Created in collaboration with tribal partners, universities, museums, and federal agencies.</p>
+            </div>
+        </div>
+    </footer>
 
     <script>
         // Library of 3D models
@@ -710,6 +898,9 @@
         const modelLibrary = document.getElementById('modelLibrary');
         const viewer = document.getElementById('viewer');
         const placeholder = document.getElementById('placeholder');
+        const loadingSpinner = document.getElementById('loadingSpinner');
+        const scaleBar = document.getElementById('scaleBar');
+        const scaleBarLabel = document.querySelector('.scale-bar-label');
         const audioPlayer = document.getElementById('audioPlayer');
         const audioControls = document.getElementById('audioControls');
         const playAudioButton = document.getElementById('playAudioButton');
@@ -812,9 +1003,10 @@
             cardElement.classList.add('selected');
             selectedModel = models[index];
             
-            // Hide placeholder and show viewer
+            // Hide placeholder, show loading spinner
             placeholder.style.display = 'none';
-            viewer.style.display = 'block';
+            loadingSpinner.style.display = 'block';
+            viewer.style.display = 'none';
             
             // Show and update metadata description
             modelDescription.style.display = 'block';
@@ -850,6 +1042,17 @@
                 if (selectedModel.iosUrl) {
                     viewer.setAttribute('ios-src', selectedModel.iosUrl);
                 }
+                
+                // Hide loading spinner and show viewer when model is loaded
+                viewer.addEventListener('load', function onLoad() {
+                    loadingSpinner.style.display = 'none';
+                    viewer.style.display = 'block';
+                    
+                    // Calculate and display scale bar
+                    updateScaleBar();
+                    
+                    viewer.removeEventListener('load', onLoad); // Remove listener after first load
+                });
             }, 50);
             
             // Handle audio button visibility
@@ -884,6 +1087,41 @@
             console.error('Error loading model:', event);
             alert('Error loading 3D model. Please try another one.');
         });
+
+        // Function to calculate and update scale bar
+        function updateScaleBar() {
+            try {
+                // Get the model's dimensions from the bounding box
+                const boundingBox = viewer.getBoundingBoxCenter();
+                const dimensions = viewer.getDimensions();
+                
+                if (dimensions) {
+                    // Get the largest dimension (in meters)
+                    const maxDim = Math.max(dimensions.x, dimensions.y, dimensions.z);
+                    
+                    // Convert to appropriate unit and format
+                    let scaleText;
+                    if (maxDim >= 1) {
+                        // Display in meters for large objects
+                        scaleText = `${maxDim.toFixed(2)} m`;
+                    } else if (maxDim >= 0.01) {
+                        // Display in centimeters for medium objects
+                        scaleText = `${(maxDim * 100).toFixed(1)} cm`;
+                    } else {
+                        // Display in millimeters for small objects
+                        scaleText = `${(maxDim * 1000).toFixed(0)} mm`;
+                    }
+                    
+                    scaleBarLabel.textContent = scaleText;
+                    scaleBar.style.display = 'block';
+                } else {
+                    scaleBar.style.display = 'none';
+                }
+            } catch (error) {
+                console.log('Could not calculate scale:', error);
+                scaleBar.style.display = 'none';
+            }
+        }
     </script>
 </body>
 </html>

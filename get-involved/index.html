@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get Involved - BEDCHI AR Gallery</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #000000;
+            color: #ffffff;
+            min-height: 100vh;
+        }
+
+        nav {
+            background: rgba(0, 0, 0, 0.95);
+            border-bottom: 1px solid rgba(102, 126, 234, 0.3);
+            padding: 0;
+            backdrop-filter: blur(20px);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0;
+            height: 70px;
+        }
+
+        .nav-link {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            font-size: 0.85em;
+            font-weight: 500;
+            padding: 0 30px;
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            display: inline-block;
+            height: 70px;
+            line-height: 70px;
+        }
+
+        .nav-link:hover {
+            color: #ffffff;
+            background: rgba(102, 126, 234, 0.1);
+            border-bottom-color: rgba(102, 126, 234, 0.5);
+        }
+
+        .nav-link.active {
+            color: #ffffff;
+            background: rgba(102, 126, 234, 0.15);
+            border-bottom-color: #667eea;
+            font-weight: 600;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .site-header {
+            text-align: center;
+            margin-bottom: 60px;
+            padding: 30px 20px;
+        }
+
+        .logo-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            max-width: 500px;
+            width: 100%;
+            height: auto;
+            filter: invert(1) sepia(1) saturate(3) hue-rotate(20deg) brightness(1.1);
+        }
+
+        .content-section {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            color: #667eea;
+            font-weight: 700;
+            text-align: center;
+        }
+
+        h2 {
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            color: #667eea;
+            font-weight: 600;
+        }
+
+        h3 {
+            font-size: 1.3em;
+            margin-bottom: 15px;
+            margin-top: 25px;
+            color: #ff7e22;
+            font-weight: 600;
+        }
+
+        p {
+            font-size: 1.1em;
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 15px;
+        }
+
+        ul {
+            margin: 15px 0;
+            padding-left: 25px;
+        }
+
+        li {
+            font-size: 1.1em;
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 10px;
+        }
+
+        .highlight-box {
+            background: rgba(255, 126, 34, 0.1);
+            border-left: 4px solid #ff7e22;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+
+        .highlight-box p {
+            margin-bottom: 0;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #ffffff;
+            padding: 15px 35px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 1.1em;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-top: 15px;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        @media (max-width: 1024px) {
+            .logo {
+                max-width: 90%;
+            }
+
+            .logo-container {
+                gap: 30px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-container {
+                padding: 0;
+                height: auto;
+                flex-wrap: wrap;
+            }
+
+            .nav-link {
+                padding: 18px 20px;
+                font-size: 0.75em;
+                height: auto;
+                line-height: normal;
+            }
+
+            .logo {
+                max-width: 100%;
+            }
+
+            .logo-container {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .content-section {
+                padding: 25px;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+
+            h2 {
+                font-size: 1.5em;
+            }
+        }
+
+        footer {
+            background: rgba(0, 0, 0, 0.95);
+            border-top: 1px solid rgba(102, 126, 234, 0.3);
+            margin-top: 60px;
+            padding: 40px 0 20px;
+        }
+
+        .footer-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 30px;
+        }
+
+        .footer-section h3 {
+            color: #ff7e22;
+            font-size: 1.1em;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.95em;
+            line-height: 1.8;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .footer-section a:hover {
+            color: #667eea;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 20px;
+            text-align: center;
+        }
+
+        .footer-bottom p {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.9em;
+            margin: 5px 0;
+        }
+
+        @media (max-width: 768px) {
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="../index.html" class="nav-link">Archive</a>
+            <a href="../about/" class="nav-link">About</a>
+            <a href="../people/" class="nav-link">People</a>
+            <a href="../partners/" class="nav-link">Partners</a>
+            <a href="../get-involved/" class="nav-link active">Get Involved</a>
+            <a href="../contact/" class="nav-link">Contact</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <header class="site-header">
+            <div class="logo-container">
+                <img src="../bedchi-logo.png" alt="BEDCHI - Bears Ears Digital Cultural Heritage Initiative" class="logo">
+            </div>
+        </header>
+
+        <h1>Get Involved</h1>
+
+        <div class="content-section">
+            <h2>Join BEDCHI</h2>
+            <p>
+                BEDCHI welcomes students, volunteers, and professionals interested in digital cultural heritage documentation, community-engaged research, and Indigenous collaboration. Whether you're looking to gain hands-on field experience, develop technical skills, or contribute to meaningful heritage preservation work, there are opportunities to get involved.
+            </p>
+        </div>
+
+        <div class="content-section">
+            <h2>Field School Opportunities</h2>
+            <p>
+                BEDCHI hosts field schools and workshop-based projects in the Bears Ears region, providing intensive training in digital documentation methods alongside community-engaged research practices.
+            </p>
+
+            <h3>What You'll Learn</h3>
+            <ul>
+                <li>Photogrammetry techniques (handheld and drone-based 3D capture)</li>
+                <li>360° panoramic documentation</li>
+                <li>3D model processing and optimization</li>
+                <li>Real-time rendering and immersive visualization</li>
+                <li>Ethical protocols for working with Indigenous communities</li>
+                <li>Collaborative research methodologies</li>
+            </ul>
+
+            <h3>Who Should Apply</h3>
+            <ul>
+                <li>Undergraduate and graduate students in anthropology, archaeology, digital humanities, museum studies, or related fields</li>
+                <li>Professionals seeking to expand their digital heritage skills</li>
+                <li>Anyone committed to respectful, community-centered cultural heritage work</li>
+            </ul>
+
+            <div class="highlight-box">
+                <p><strong>No prior technical experience required!</strong> BEDCHI field schools are designed to teach reproducible methods from the ground up, emphasizing collaborative learning and hands-on practice.</p>
+            </div>
+
+            <h3>Current Field School Program</h3>
+            <p>
+                BEDCHI partners with the Institute for Field Research (IFR) to offer a field school in digital archaeology and cultural heritage documentation in the Bears Ears region. This intensive program provides hands-on training in 3D documentation, geospatial technologies, and community-engaged research practices.
+            </p>
+            <p>
+                <a href="https://ifrglobal.org/program/us-ut-bears-ears-digital-archaeology/" target="_blank" style="color: #667eea; text-decoration: none; font-weight: 600;">Learn more and apply through IFR →</a>
+            </p>
+
+            <a href="../contact/" class="cta-button">Contact Us About Field Schools</a>
+        </div>
+
+        <div class="content-section">
+            <h2>Volunteer Opportunities</h2>
+            <p>
+                We welcome volunteers to assist with various aspects of the project, from field documentation to post-processing and digital asset management.
+            </p>
+
+            <h3>Ways to Contribute</h3>
+            <ul>
+                <li><strong>Field Documentation:</strong> Participate in on-site recording sessions in the Bears Ears region</li>
+                <li><strong>Data Processing:</strong> Help process and optimize 3D models for archiving and visualization</li>
+                <li><strong>Metadata Management:</strong> Assist with cataloging and organizing digital assets</li>
+                <li><strong>Outreach & Education:</strong> Support educational programs and public engagement activities</li>
+                <li><strong>Web Development:</strong> Contribute to digital platforms and interactive experiences</li>
+            </ul>
+
+            <h3>Volunteer Benefits</h3>
+            <ul>
+                <li>Hands-on experience with cutting-edge digital heritage technology</li>
+                <li>Training in ethical community-engaged research practices</li>
+                <li>Networking with professionals in archaeology, anthropology, and digital humanities</li>
+                <li>Contribution to meaningful Indigenous cultural heritage preservation</li>
+                <li>Potential co-authorship opportunities on publications and presentations</li>
+            </ul>
+
+            <a href="../contact/" class="cta-button">Express Interest in Volunteering</a>
+        </div>
+
+        <div class="content-section">
+            <h2>Research Collaborations</h2>
+            <p>
+                BEDCHI supports collaborative research projects that advance digital heritage methodologies, Indigenous interpretive authority, and community-engaged documentation practices. We welcome proposals from researchers, institutions, and tribal organizations interested in partnership.
+            </p>
+
+            <h3>Areas of Collaboration</h3>
+            <ul>
+                <li>Digital documentation workflows and technical development</li>
+                <li>Indigenous knowledge systems and interpretive frameworks</li>
+                <li>Immersive visualization and virtual reality applications</li>
+                <li>Long-term digital preservation and archival strategies</li>
+                <li>Educational programming and public outreach</li>
+            </ul>
+
+            <a href="../contact/" class="cta-button">Discuss Research Partnerships</a>
+        </div>
+
+        <div class="content-section">
+            <h2>Stay Connected</h2>
+            <p>
+                Interested in hearing about upcoming field schools, volunteer opportunities, and project updates? Reach out to us at <a href="/cdn-cgi/l/email-protection#294c5b404a414c4545695c5a4a074c4d5c" style="color: #667eea; text-decoration: none;"><span class="__cf_email__" data-cfemail="5a3f283339323f36361a2f2939
