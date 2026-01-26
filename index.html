@@ -963,31 +963,39 @@
             // Clear current models
             modelLibrary.innerHTML = '';
             
+            console.log('Rendering models - category:', currentCategory, 'culture:', currentCulture);
+            console.log('Total models:', models.length);
+            
             // Filter models by both category and culture
-            models
-                .filter(model => {
-                    const matchesCategory = model.category === currentCategory;
-                    const matchesCulture = currentCulture === 'all' || model.culture === currentCulture;
-                    return matchesCategory && matchesCulture;
-                })
-                .forEach((model, filteredIndex) => {
-                    const originalIndex = models.indexOf(model);
-                    const card = document.createElement('div');
-                    card.className = 'model-card';
-                    card.dataset.index = originalIndex;
-                    card.innerHTML = `
-                        <div class="model-info">
-                            <div class="model-name">${model.name}</div>
-                            <div class="model-preview-label">Tap to preview</div>
-                        </div>
-                    `;
-                    
-                    card.addEventListener('click', () => {
-                        selectModel(originalIndex, card);
-                    });
-                    
-                    modelLibrary.appendChild(card);
+            const filteredModels = models.filter(model => {
+                const matchesCategory = model.category === currentCategory;
+                const matchesCulture = currentCulture === 'all' || model.culture === currentCulture;
+                console.log('Model:', model.name, 'Category match:', matchesCategory, 'Culture match:', matchesCulture);
+                return matchesCategory && matchesCulture;
+            });
+            
+            console.log('Filtered models:', filteredModels.length);
+            
+            filteredModels.forEach((model, filteredIndex) => {
+                const originalIndex = models.indexOf(model);
+                const card = document.createElement('div');
+                card.className = 'model-card';
+                card.dataset.index = originalIndex;
+                card.innerHTML = `
+                    <div class="model-info">
+                        <div class="model-name">${model.name}</div>
+                        <div class="model-preview-label">Tap to preview</div>
+                    </div>
+                `;
+                
+                card.addEventListener('click', () => {
+                    selectModel(originalIndex, card);
                 });
+                
+                modelLibrary.appendChild(card);
+            });
+            
+            console.log('Cards appended to library');
         }
 
         // Initial render
@@ -1130,4 +1138,13 @@
                     scaleBarLabel.textContent = scaleText;
                     scaleBar.style.display = 'block';
                 } else {
-                    scaleBar.styl
+e.display = 'none';
+                }
+            } catch (error) {
+                console.log('Could not calculate scale:', error);
+                scaleBar.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>
