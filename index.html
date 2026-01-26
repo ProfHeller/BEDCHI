@@ -615,7 +615,7 @@
         // The 'metadata' contains detailed information displayed in the right column
         const models = [
             {
-                name: 'Bird',
+                name: 'Bird Effigy Vessel',
                 category: 'objects',
                 culture: 'zuni',
                 url: 'models/bird/bird.glb',
@@ -624,7 +624,7 @@
                 metadata: {
                     museum: 'Natural History Museum of Los Angeles County',
                     accession: 'NHMLAC 2024.001',
-                    description: 'A beautifully preserved avian specimen showcasing detailed plumage and anatomical features. This 3D model captures the intricate details of the bird\'s form, making it an excellent educational resource for ornithology studies.'
+                    description: 'A ceramic bird effigy vessel from the Zuni tradition. This functional pottery piece is shaped in the form of a bird, combining artistic representation with practical use. Effigy vessels like this demonstrate the integration of spiritual symbolism and daily life in Zuni material culture.'
                 }
             },
             {
@@ -691,6 +691,19 @@
                     date: '2024',
                     description: 'A 3D model of a culturally significant rock formation or landscape feature from the Bears Ears region. This digital documentation preserves the spatial context and geological characteristics of the site.'
                 }
+            },
+            {
+                name: "Lara's Hogan",
+                category: 'sites',
+                culture: 'navajo',
+                url: 'models/laras-hogan/laras-hogan.glb',
+                iosUrl: 'models/laras-hogan/laras-hogan.usdz',
+                audio: 'models/laras-hogan/laras-hogan.mp3',
+                metadata: {
+                    location: 'Bears Ears National Monument, Utah',
+                    date: '2024',
+                    description: 'A 3D model of a traditional Navajo hogan structure. Hogans are sacred dwellings central to Navajo culture and spiritual practice. This digital documentation preserves the architectural details and spatial context of this culturally significant structure.'
+                }
             }
         ];
 
@@ -720,6 +733,20 @@
                 
                 // Update current culture
                 currentCulture = tab.dataset.culture;
+                
+                // Clear viewer and show placeholder
+                viewer.src = '';
+                viewer.removeAttribute('ios-src');
+                viewer.style.display = 'none';
+                placeholder.style.display = 'flex';
+                modelDescription.style.display = 'none';
+                selectedModel = null;
+                
+                // Stop and clear audio
+                audioPlayer.pause();
+                audioPlayer.src = '';
+                playAudioButton.classList.remove('active');
+                audioControls.classList.remove('active');
                 
                 // Re-render model library
                 renderModels();
