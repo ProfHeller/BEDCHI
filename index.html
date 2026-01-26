@@ -780,7 +780,7 @@
                 </div>
                 <div class="footer-section">
                     <h3>Contact</h3>
-                    <a href="mailto:erichell@usc.edu">erichell@usc.edu</a>
+                    <a href="/cdn-cgi/l/email-protection#3e5b4c575d565b52527e4b4d5d105b5a4b"><span class="__cf_email__" data-cfemail="6500170c060d000909251016064b000110">[email&#160;protected]</span></a>
                     <p style="margin-top: 15px;">
                         University of Southern California<br>
                         Department of Anthropology
@@ -794,7 +794,7 @@
         </div>
     </footer>
 
-    <script>
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
         // Library of 3D models
         // For USDZ files: provide the filename you uploaded to GitHub
         // The 'url' is used for browser 3D preview (use GLB for best results)
@@ -1043,16 +1043,31 @@
                     viewer.setAttribute('ios-src', selectedModel.iosUrl);
                 }
                 
-                // Hide loading spinner and show viewer when model is loaded
-                viewer.addEventListener('load', function onLoad() {
+                // Set up loading complete handler
+                let loadHandled = false;
+                
+                const handleLoadComplete = () => {
+                    if (loadHandled) return;
+                    loadHandled = true;
+                    
                     loadingSpinner.style.display = 'none';
                     viewer.style.display = 'block';
                     
                     // Calculate and display scale bar
                     updateScaleBar();
-                    
-                    viewer.removeEventListener('load', onLoad); // Remove listener after first load
-                });
+                };
+                
+                // Try multiple events for better reliability
+                viewer.addEventListener('load', handleLoadComplete, { once: true });
+                viewer.addEventListener('model-visibility', handleLoadComplete, { once: true });
+                
+                // Fallback timeout in case events don't fire
+                setTimeout(() => {
+                    if (!loadHandled) {
+                        console.log('Load timeout - showing model anyway');
+                        handleLoadComplete();
+                    }
+                }, 3000); // 3 second timeout
             }, 50);
             
             // Handle audio button visibility
@@ -1115,13 +1130,4 @@
                     scaleBarLabel.textContent = scaleText;
                     scaleBar.style.display = 'block';
                 } else {
-                    scaleBar.style.display = 'none';
-                }
-            } catch (error) {
-                console.log('Could not calculate scale:', error);
-                scaleBar.style.display = 'none';
-            }
-        }
-    </script>
-</body>
-</html>
+                    scaleBar.styl
