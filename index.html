@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AR Model Viewer</title>
+    <title>BEDCHI Archive</title>
     <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.3.0/model-viewer.min.js"></script>
     <style>
         * {
@@ -408,28 +408,8 @@
             border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        .scale-bar {
-            position: absolute;
-            bottom: 20px;
-            left: 20px;
-            background: rgba(0, 0, 0, 0.7);
-            padding: 10px 15px;
-            border-radius: 8px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(10px);
-            z-index: 5;
-        }
 
-        .scale-bar-line {
-            width: 100px;
-            height: 3px;
-            background: #ff7e22;
-            margin-bottom: 5px;
-            position: relative;
-        }
 
-        .scale-bar-line::before,
-        .scale-bar-line::after {
             content: '';
             position: absolute;
             width: 2px;
@@ -438,20 +418,12 @@
             top: -3px;
         }
 
-        .scale-bar-line::before {
             left: 0;
         }
 
-        .scale-bar-line::after {
             right: 0;
         }
 
-        .scale-bar-label {
-            font-size: 0.85em;
-            color: rgba(255, 255, 255, 0.9);
-            text-align: center;
-            font-weight: 600;
-        }
 
         footer {
             background: rgba(0, 0, 0, 0.95);
@@ -730,10 +702,6 @@
                             📱 View in AR
                         </button>
                     </model-viewer>
-                    <div id="scaleBar" class="scale-bar" style="display: none;">
-                        <div class="scale-bar-line"></div>
-                        <div class="scale-bar-label">Loading scale...</div>
-                    </div>
                     <div class="button-container">
                         <button id="playAudioButton" class="play-audio-button">
                             🔊 Play Audio
@@ -881,12 +849,12 @@
                 }
             },
             {
-                name: "Laura's Hogon",
+                name: "Laura's Hogan",
                 category: 'sites',
                 culture: 'navajo',
-                url: 'models/lauras-hogon/lauras-hogon.glb',
-                iosUrl: 'models/lauras-hogon/lauras-hogon.usdz',
-                audio: 'models/lauras-hogon/lauras-hogon.mp3',
+                url: 'models/lauras-hogan/lauras-hogan.glb',
+                iosUrl: 'models/lauras-hogan/lauras-hogan.usdz',
+                audio: 'models/lauras-hogan/lauras-hogan.mp3',
                 metadata: {
                     location: 'Bears Ears National Monument, Utah',
                     date: '2024',
@@ -899,8 +867,6 @@
         const viewer = document.getElementById('viewer');
         const placeholder = document.getElementById('placeholder');
         const loadingSpinner = document.getElementById('loadingSpinner');
-        const scaleBar = document.getElementById('scaleBar');
-        const scaleBarLabel = document.querySelector('.scale-bar-label');
         const audioPlayer = document.getElementById('audioPlayer');
         const audioControls = document.getElementById('audioControls');
         const playAudioButton = document.getElementById('playAudioButton');
@@ -1061,8 +1027,6 @@
                     loadingSpinner.style.display = 'none';
                     viewer.style.display = 'block';
                     
-                    // Calculate and display scale bar
-                    updateScaleBar();
                 };
                 
                 // Try multiple events for better reliability
@@ -1111,40 +1075,6 @@
             alert('Error loading 3D model. Please try another one.');
         });
 
-        // Function to calculate and update scale bar
-        function updateScaleBar() {
-            try {
-                // Get the model's dimensions from the bounding box
-                const boundingBox = viewer.getBoundingBoxCenter();
-                const dimensions = viewer.getDimensions();
-                
-                if (dimensions) {
-                    // Get the largest dimension (in meters)
-                    const maxDim = Math.max(dimensions.x, dimensions.y, dimensions.z);
-                    
-                    // Convert to appropriate unit and format
-                    let scaleText;
-                    if (maxDim >= 1) {
-                        // Display in meters for large objects
-                        scaleText = `${maxDim.toFixed(2)} m`;
-                    } else if (maxDim >= 0.01) {
-                        // Display in centimeters for medium objects
-                        scaleText = `${(maxDim * 100).toFixed(1)} cm`;
-                    } else {
-                        // Display in millimeters for small objects
-                        scaleText = `${(maxDim * 1000).toFixed(0)} mm`;
-                    }
-                    
-                    scaleBarLabel.textContent = scaleText;
-                    scaleBar.style.display = 'block';
-                } else {
-e.display = 'none';
-                }
-            } catch (error) {
-                console.log('Could not calculate scale:', error);
-                scaleBar.style.display = 'none';
-            }
-        }
     </script>
 </body>
 </html>
