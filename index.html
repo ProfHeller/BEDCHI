@@ -96,12 +96,13 @@
             filter: invert(1) sepia(1) saturate(3) hue-rotate(20deg) brightness(1.1);
         }
 
-        .welcome-text {
-            color: rgba(255, 255, 255, 0.8);
-            font-size: 1.3em;
-            margin-top: 20px;
-            font-weight: 400;
-            letter-spacing: 0.5px;
+        .archive-title {
+            color: #ffffff;
+            font-size: 2.5em;
+            margin-top: 30px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
         }
 
         .instructions-banner {
@@ -510,6 +511,7 @@
             margin-top: 20px;
             flex-wrap: wrap;
             justify-content: center;
+            text-align: center;
         }
 
         .play-audio-button {
@@ -647,7 +649,7 @@
             <div class="logo-container">
                 <img src="bedchi-logo.png" alt="BEDCHI - Bears Ears Digital Cultural Heritage Initiative" class="logo">
             </div>
-            <p class="welcome-text">Welcome to the BEDCHI digital archive</p>
+            <h1 class="archive-title">Digital Archive</h1>
         </header>
 
         <div class="instructions-banner">
@@ -702,14 +704,15 @@
                             📱 View in AR
                         </button>
                     </model-viewer>
-                    <div class="button-container">
-                        <button id="playAudioButton" class="play-audio-button">
-                            🔊 Play Audio
-                        </button>
-                    </div>
-                    <div id="audioControls" class="audio-controls">
-                        <audio id="audioPlayer" controls></audio>
-                    </div>
+                </div>
+                
+                <div class="button-container">
+                    <button id="playAudioButton" class="play-audio-button">
+                        🔊 Play Audio
+                    </button>
+                </div>
+                <div id="audioControls" class="audio-controls">
+                    <audio id="audioPlayer" controls></audio>
                 </div>
                 
                 <div id="modelDescription" class="model-description" style="display: none;">
@@ -859,6 +862,32 @@
                     location: 'Bears Ears National Monument, Utah',
                     date: '2024',
                     description: 'A 3D model of a traditional Navajo hogan structure. Hogans are sacred dwellings central to Navajo culture and spiritual practice. This digital documentation preserves the architectural details and spatial context of this culturally significant structure.'
+                }
+            },
+            {
+                name: 'Textile',
+                category: 'objects',
+                culture: 'navajo',
+                url: 'models/textile/textile.glb',
+                iosUrl: 'models/textile/textile.usdz',
+                audio: 'models/textile/textile.mp3',
+                metadata: {
+                    museum: 'Natural History Museum of Los Angeles County',
+                    accession: 'NHMLAC 2024.007',
+                    description: 'A traditional Navajo textile showcasing intricate weaving patterns and techniques passed down through generations. Navajo textiles are renowned for their geometric designs and use of natural dyes, representing both artistic excellence and cultural identity.'
+                }
+            },
+            {
+                name: 'Vessel',
+                category: 'objects',
+                culture: 'navajo',
+                url: 'models/vessel/vessel.glb',
+                iosUrl: 'models/vessel/vessel.usdz',
+                audio: 'models/vessel/vessel.mp3',
+                metadata: {
+                    museum: 'Natural History Museum of Los Angeles County',
+                    accession: 'NHMLAC 2024.008',
+                    description: 'A Navajo ceramic vessel demonstrating traditional pottery techniques and designs. This functional piece reflects the practical artistry of Navajo material culture and the continuation of ceramic traditions in the region.'
                 }
             }
         ];

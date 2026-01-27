@@ -275,6 +275,79 @@
             margin: 5px 0;
         }
 
+        .photo-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .photo-item {
+            border-radius: 15px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        .photo-item img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .photo-caption {
+            padding: 15px;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9em;
+            line-height: 1.6;
+        }
+
+        .content-with-image {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+            margin-top: 30px;
+        }
+
+        .content-with-image.reverse {
+            direction: rtl;
+        }
+
+        .content-with-image.reverse > * {
+            direction: ltr;
+        }
+
+        .image-large {
+            border-radius: 15px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .image-large img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            min-height: 300px;
+        }
+
+        @media (max-width: 768px) {
+            .photo-gallery {
+                grid-template-columns: 1fr;
+            }
+
+            .content-with-image {
+                grid-template-columns: 1fr;
+            }
+
+            .content-with-image.reverse {
+                direction: ltr;
+            }
+        }
+
         @media (max-width: 768px) {
             .footer-content {
                 grid-template-columns: 1fr;
@@ -306,26 +379,40 @@
 
         <div class="content-section">
             <h2>Join BEDCHI</h2>
-            <p>
-                BEDCHI welcomes students, volunteers, and professionals interested in digital cultural heritage documentation, community-engaged research, and Indigenous collaboration. Whether you're looking to gain hands-on field experience, develop technical skills, or contribute to meaningful heritage preservation work, there are opportunities to get involved.
-            </p>
+            <div class="content-with-image">
+                <div>
+                    <p>
+                        BEDCHI welcomes students, volunteers, and professionals interested in digital cultural heritage documentation, community-engaged research, and Indigenous collaboration. Whether you're looking to gain hands-on field experience, develop technical skills, or contribute to meaningful heritage preservation work, there are opportunities to get involved.
+                    </p>
+                </div>
+                <div class="image-large">
+                    <img src="../get-involved/fieldschool-1.jpg" alt="Students learning in the field">
+                </div>
+            </div>
         </div>
 
         <div class="content-section">
-            <h2>Field School Opportunities</h2>
-            <p>
-                BEDCHI hosts field schools and workshop-based projects in the Bears Ears region, providing intensive training in digital documentation methods alongside community-engaged research practices.
-            </p>
+            <div class="content-with-image reverse">
+                <div class="image-large">
+                    <img src="../get-involved/fieldschool-2.jpg" alt="3D scanning workshop">
+                </div>
+                <div>
+                    <h2>Field School Opportunities</h2>
+                    <p>
+                        BEDCHI hosts field schools and workshop-based projects in the Bears Ears region, providing intensive training in digital documentation methods alongside community-engaged research practices.
+                    </p>
 
-            <h3>What You'll Learn</h3>
-            <ul>
-                <li>Photogrammetry techniques (handheld and drone-based 3D capture)</li>
-                <li>360° panoramic documentation</li>
-                <li>3D model processing and optimization</li>
-                <li>Real-time rendering and immersive visualization</li>
-                <li>Ethical protocols for working with Indigenous communities</li>
-                <li>Collaborative research methodologies</li>
-            </ul>
+                    <h3>What You'll Learn</h3>
+                    <ul>
+                        <li>Photogrammetry techniques (handheld and drone-based 3D capture)</li>
+                        <li>360° panoramic documentation</li>
+                        <li>3D model processing and optimization</li>
+                        <li>Real-time rendering and immersive visualization</li>
+                        <li>Ethical protocols for working with Indigenous communities</li>
+                        <li>Collaborative research methodologies</li>
+                    </ul>
+                </div>
+            </div>
 
             <h3>Who Should Apply</h3>
             <ul>
@@ -350,19 +437,26 @@
         </div>
 
         <div class="content-section">
-            <h2>Volunteer Opportunities</h2>
-            <p>
-                We welcome volunteers to assist with various aspects of the project, from field documentation to post-processing and digital asset management.
-            </p>
+            <div class="content-with-image">
+                <div>
+                    <h2>Volunteer Opportunities</h2>
+                    <p>
+                        We welcome volunteers to assist with various aspects of the project, from field documentation to post-processing and digital asset management.
+                    </p>
 
-            <h3>Ways to Contribute</h3>
-            <ul>
-                <li><strong>Field Documentation:</strong> Participate in on-site recording sessions in the Bears Ears region</li>
-                <li><strong>Data Processing:</strong> Help process and optimize 3D models for archiving and visualization</li>
-                <li><strong>Metadata Management:</strong> Assist with cataloging and organizing digital assets</li>
-                <li><strong>Outreach & Education:</strong> Support educational programs and public engagement activities</li>
-                <li><strong>Web Development:</strong> Contribute to digital platforms and interactive experiences</li>
-            </ul>
+                    <h3>Ways to Contribute</h3>
+                    <ul>
+                        <li><strong>Field Documentation:</strong> Participate in on-site recording sessions in the Bears Ears region</li>
+                        <li><strong>Data Processing:</strong> Help process and optimize 3D models for archiving and visualization</li>
+                        <li><strong>Metadata Management:</strong> Assist with cataloging and organizing digital assets</li>
+                        <li><strong>Outreach & Education:</strong> Support educational programs and public engagement activities</li>
+                        <li><strong>Web Development:</strong> Contribute to digital platforms and interactive experiences</li>
+                    </ul>
+                </div>
+                <div class="image-large">
+                    <img src="../get-involved/fieldschool-3.jpg" alt="Volunteer team collaboration">
+                </div>
+            </div>
 
             <h3>Volunteer Benefits</h3>
             <ul>

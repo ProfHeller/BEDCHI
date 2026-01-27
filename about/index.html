@@ -216,6 +216,97 @@
             margin: 5px 0;
         }
 
+        .photo-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .photo-item {
+            border-radius: 15px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        .photo-item img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .photo-caption {
+            padding: 15px;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9em;
+            line-height: 1.6;
+        }
+
+        .content-with-image {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .content-with-image.reverse {
+            direction: rtl;
+        }
+
+        .content-with-image.reverse > * {
+            direction: ltr;
+        }
+
+        .image-large {
+            border-radius: 15px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .image-large img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            min-height: 300px;
+        }
+
+        .full-width-banner {
+            border-radius: 20px;
+            overflow: hidden;
+            margin: 40px 0;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .full-width-banner img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            .photo-gallery {
+                grid-template-columns: 1fr;
+            }
+
+            .content-with-image {
+                grid-template-columns: 1fr;
+            }
+
+            .content-with-image.reverse {
+                direction: ltr;
+            }
+
+            .full-width-banner img {
+                height: 250px;
+            }
+        }
+
         @media (max-width: 768px) {
             .footer-content {
                 grid-template-columns: 1fr;
@@ -245,29 +336,57 @@
 
         <div class="content-section">
             <h1>About BEDCHI</h1>
-            <p>
-                Bears Ears Digital Cultural Heritage Initiative (BEDCHI) is a collaborative project that documents and interprets cultural heritage sites and landscapes of the Bears Ears region in southeastern Utah through 3D scanning, immersive visualization, recording oral histories, and community-engaged research.
-            </p>
-            <p>
-                Working with Indigenous cultural experts, land managers, archaeologists, conservation organizations and students, BEDCHI uses workshops and field projects to build shared skills, support Indigenous interpretive authority, and create digital resources—such as 3D models and VR experiences—that aid research, education, and public outreach.
-            </p>
+            <div class="content-with-image">
+                <div>
+                    <p>
+                        Bears Ears Digital Cultural Heritage Initiative (BEDCHI) is a collaborative project that documents and interprets cultural heritage sites and landscapes of the Bears Ears region in southeastern Utah through 3D scanning, immersive visualization, recording oral histories, and community-engaged research.
+                    </p>
+                    <p>
+                        Working with Indigenous cultural experts, land managers, archaeologists, conservation organizations and students, BEDCHI uses workshops and field projects to build shared skills, support Indigenous interpretive authority, and create digital resources—such as 3D models and VR experiences—that aid research, education, and public outreach.
+                    </p>
+                </div>
+                <div class="image-large">
+                    <img src="../about/fieldwork-1.jpg" alt="BEDCHI field work at Bears Ears">
+                </div>
+            </div>
+        </div>
+
+        <div class="full-width-banner">
+            <img src="../about/landscape.jpg" alt="Bears Ears landscape">
         </div>
 
         <div class="content-section">
-            <h2>Our Mission</h2>
-            <p>
-                BEDCHI's mission is to document and preserve cultural heritage sites and landscapes through collaborative digital documentation, supporting Indigenous interpretive authority and fostering shared understanding through community-engaged research and education.
-            </p>
+            <div class="content-with-image reverse">
+                <div class="image-large">
+                    <img src="../about/fieldwork-2.jpg" alt="3D scanning technology in use">
+                </div>
+                <div>
+                    <h2>Technology & Approach</h2>
+                    <p>
+                        BEDCHI uses a collaborative workshop-based field-to-immersive workflow that moves from rapid, high-resolution 3D capture, visualization, interpretive experiences development. In the field, teams document cultural materials and landscapes using photogrammetry, 360° imagery.
+                    </p>
+                    <p>
+                        Back in the lab, models are processed and optimized for long-term archiving and real-time rendering. Those assets are then assembled into interactive prototypes that connect interpretive content (audio/visual recordings featuring community-provided context).
+                    </p>
+                </div>
+            </div>
         </div>
 
         <div class="content-section">
-            <h2>Technology & Approach</h2>
-            <p>
-                BEDCHI uses a collaborative workshop-based field-to-immersive workflow that moves from rapid, high-resolution 3D capture, visualization, interpretive experiences development. In the field, teams document cultural materials and landscapes using photogrammetry, 360° imagery. Back in the lab, models are processed and optimized for long-term archiving and real-time rendering.
-            </p>
-            <p>
-                Those assets are then assembled into interactive prototypes that connect interpretive content (audio/visual recordings featuring community-provided context) so the same dataset can support research, conservation efforts, teaching, outreach, and public engagement. BEDCHI is achieved through hands-on workshops that emphasize reproducible methods, collaborative review, ethically grounded work, and indigenous interpretive sovereignty, from capture through publication.
-            </p>
+            <div class="content-with-image">
+                <div>
+                    <h2>Our Mission</h2>
+                    <p>
+                        BEDCHI's mission is to document and preserve cultural heritage sites and landscapes through collaborative digital documentation, supporting Indigenous interpretive authority and fostering shared understanding through community-engaged research and education.
+                    </p>
+                    <p>
+                        BEDCHI is achieved through hands-on workshops that emphasize reproducible methods, collaborative review, ethically grounded work, and indigenous interpretive sovereignty, from capture through publication.
+                    </p>
+                </div>
+                <div class="image-large">
+                    <img src="../about/fieldwork-3.jpg" alt="Community collaboration">
+                </div>
+            </div>
         </div>
     </div>
     <footer>
@@ -290,7 +409,7 @@
                 </div>
                 <div class="footer-section">
                     <h3>Contact</h3>
-                    <a href="mailto:erichell@usc.edu">erichell@usc.edu</a>
+                    <a href="/cdn-cgi/l/email-protection#f19483989299949d9db1848292df949584"><span class="__cf_email__" data-cfemail="89ecfbe0eae1ece5e5c9fcfaeaa7ecedfc">[email&#160;protected]</span></a>
                     <p style="margin-top: 15px;">
                         University of Southern California<br>
                         Department of Anthropology
@@ -299,9 +418,4 @@
             </div>
             <div class="footer-bottom">
                 <p>&copy; 2025 Bears Ears Digital Cultural Heritage Initiative. All rights reserved.</p>
-                <p>Created in collaboration with tribal partners, universities, museums, and federal agencies.</p>
-            </div>
-        </div>
-    </footer>
-</body>
-</html>
+                <p>Created in collaboration with t
