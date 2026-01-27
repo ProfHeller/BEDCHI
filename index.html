@@ -1007,40 +1007,37 @@
             viewer.src = '';
             viewer.removeAttribute('ios-src');
             
-            // Small delay to ensure viewer is cleared before loading new model
+            // Load the model for 3D preview immediately
+            viewer.src = selectedModel.url;
+            
+            // Set iOS-specific AR source if provided (for USDZ files)
+            if (selectedModel.iosUrl) {
+                viewer.setAttribute('ios-src', selectedModel.iosUrl);
+            }
+            
+            // Set up loading complete handler
+            let loadHandled = false;
+            
+            const handleLoadComplete = () => {
+                if (loadHandled) return;
+                loadHandled = true;
+                
+                loadingSpinner.style.display = 'none';
+                viewer.style.display = 'block';
+                
+            };
+            
+            // Try multiple events for better reliability
+            viewer.addEventListener('load', handleLoadComplete, { once: true });
+            viewer.addEventListener('model-visibility', handleLoadComplete, { once: true });
+            
+            // Fallback timeout in case events don't fire
             setTimeout(() => {
-                // Load the model for 3D preview
-                viewer.src = selectedModel.url;
-                
-                // Set iOS-specific AR source if provided (for USDZ files)
-                if (selectedModel.iosUrl) {
-                    viewer.setAttribute('ios-src', selectedModel.iosUrl);
+                if (!loadHandled) {
+                    console.log('Load timeout - showing model anyway');
+                    handleLoadComplete();
                 }
-                
-                // Set up loading complete handler
-                let loadHandled = false;
-                
-                const handleLoadComplete = () => {
-                    if (loadHandled) return;
-                    loadHandled = true;
-                    
-                    loadingSpinner.style.display = 'none';
-                    viewer.style.display = 'block';
-                    
-                };
-                
-                // Try multiple events for better reliability
-                viewer.addEventListener('load', handleLoadComplete, { once: true });
-                viewer.addEventListener('model-visibility', handleLoadComplete, { once: true });
-                
-                // Fallback timeout in case events don't fire
-                setTimeout(() => {
-                    if (!loadHandled) {
-                        console.log('Load timeout - showing model anyway');
-                        handleLoadComplete();
-                    }
-                }, 3000); // 3 second timeout
-            }, 50);
+            }, 3000); // 3 second timeout
             
             // Handle audio button visibility
             if (selectedModel.audio) {
