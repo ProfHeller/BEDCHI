@@ -93,7 +93,7 @@
             max-width: 500px;
             width: 100%;
             height: auto;
-            filter: invert(1) sepia(1) saturate(3) hue-rotate(20deg) brightness(1.1);
+            filter: invert(1) brightness(2);
         }
 
         .archive-title {
@@ -630,6 +630,106 @@
                 font-size: 1.1em;
             }
         }
+
+        /* Funders Banner */
+        .funders-banner {
+            background: rgba(255, 255, 255, 0.03);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 40px 20px;
+            margin-top: 60px;
+        }
+
+        .funders-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .funders-container h3 {
+            color: #ff7e22;
+            font-size: 1.1em;
+            margin-bottom: 30px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .funders-logos {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 60px;
+            flex-wrap: wrap;
+        }
+
+        .funder-logo {
+            max-width: 200px;
+            height: 80px;
+            object-fit: contain;
+            opacity: 0.9;
+            transition: opacity 0.3s ease;
+        }
+
+        .funder-logo:hover {
+            opacity: 1;
+        }
+
+        @media (max-width: 768px) {
+            .funders-logos {
+                gap: 40px;
+            }
+
+            .funder-logo {
+                max-width: 150px;
+                height: 60px;
+            }
+        }
+
+        .footer-funders {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-funders h4 {
+            color: #ff7e22;
+            font-size: 0.9em;
+            margin-bottom: 15px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .footer-funders-logos {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .footer-funder-logo {
+            max-width: 120px;
+            height: 50px;
+            object-fit: contain;
+            opacity: 0.85;
+            transition: opacity 0.3s ease;
+        }
+
+        .footer-funder-logo:hover {
+            opacity: 1;
+        }
+
+        @media (max-width: 768px) {
+            .footer-funders-logos {
+                gap: 15px;
+            }
+
+            .footer-funder-logo {
+                max-width: 100px;
+                height: 40px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -739,6 +839,14 @@
                     <p>
                         The Bears Ears Digital Cultural Heritage Initiative documents and interprets cultural heritage sites and landscapes through 3D scanning, immersive visualization, and community-engaged research in partnership with Indigenous communities, researchers, and land managers.
                     </p>
+                    <div class="footer-funders">
+                        <h4>Major Funders</h4>
+                        <div class="footer-funders-logos">
+                            <img src="partners/ifr-logo.png" alt="Institute for Field Research" class="footer-funder-logo">
+                            <img src="partners/cnha-logo.png" alt="Canyonlands Natural History Association" class="footer-funder-logo">
+                            <img src="partners/nhmlac-logo.png" alt="Natural History Museum of Los Angeles County" class="footer-funder-logo">
+                        </div>
+                    </div>
                 </div>
                 <div class="footer-section">
                     <h3>Quick Links</h3>
@@ -873,7 +981,7 @@
                 audio: 'models/textile/textile.mp3',
                 metadata: {
                     museum: 'Natural History Museum of Los Angeles County',
-                    accession: 'NHMLAC 2024.007',
+                    accession: 'A.5141.42-38',
                     description: 'A traditional Navajo textile showcasing intricate weaving patterns and techniques passed down through generations. Navajo textiles are renowned for their geometric designs and use of natural dyes, representing both artistic excellence and cultural identity.'
                 }
             },

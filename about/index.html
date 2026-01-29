@@ -92,7 +92,7 @@
             max-width: 500px;
             width: 100%;
             height: auto;
-            filter: invert(1) sepia(1) saturate(3) hue-rotate(20deg) brightness(1.1);
+            filter: invert(1) brightness(2);
         }
 
 
@@ -313,6 +313,68 @@
                 gap: 30px;
             }
         }
+
+
+
+
+
+
+
+        @media (max-width: 768px) {
+            .funders-logos {
+                gap: 40px;
+            }
+
+            .funder-logo {
+                max-width: 150px;
+                height: 60px;
+            }
+        }
+
+        .footer-funders {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-funders h4 {
+            color: #ff7e22;
+            font-size: 0.9em;
+            margin-bottom: 15px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .footer-funders-logos {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .footer-funder-logo {
+            max-width: 120px;
+            height: 50px;
+            object-fit: contain;
+            opacity: 0.85;
+            transition: opacity 0.3s ease;
+        }
+
+        .footer-funder-logo:hover {
+            opacity: 1;
+        }
+
+        @media (max-width: 768px) {
+            .footer-funders-logos {
+                gap: 15px;
+            }
+
+            .footer-funder-logo {
+                max-width: 100px;
+                height: 40px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -339,10 +401,10 @@
             <div class="content-with-image">
                 <div>
                     <p>
-                        Bears Ears Digital Cultural Heritage Initiative (BEDCHI) is a collaborative project that documents and interprets cultural heritage sites and landscapes of the Bears Ears region in southeastern Utah through 3D scanning, immersive visualization, recording oral histories, and community-engaged research.
+                        The Bears Ears Digital Cultural Heritage Initiative (BEDCHI) is a collaborative project that documents and interprets cultural heritage sites and landscapes of the Bears Ears region in southeastern Utah through 3D scanning, immersive visualization, oral history recording, and community-engaged research.
                     </p>
                     <p>
-                        Working with Indigenous cultural experts, land managers, archaeologists, conservation organizations and students, BEDCHI uses workshops and field projects to build shared skills, support Indigenous interpretive authority, and create digital resources—such as 3D models and VR experiences—that aid research, education, and public outreach.
+                        Working with Indigenous cultural experts, land managers, archaeologists, conservation organizations, and students, BEDCHI uses workshops and field projects to build shared skills, support Indigenous interpretive authority, and create digital resources—such as 3D models and VR experiences—that aid research, education, and public outreach.
                     </p>
                 </div>
                 <div class="image-large">
@@ -363,10 +425,13 @@
                 <div>
                     <h2>Technology & Approach</h2>
                     <p>
-                        BEDCHI uses a collaborative workshop-based field-to-immersive workflow that moves from rapid, high-resolution 3D capture, visualization, interpretive experiences development. In the field, teams document cultural materials and landscapes using photogrammetry, 360° imagery.
+                        BEDCHI uses a collaborative, workshop-based field-to-immersive workflow that moves from rapid, high-resolution 3D capture to visualization and interpretive experience development. In the field, teams document cultural materials and landscapes using photogrammetry and 360° imagery while conducting ethnographic fieldwork and recording oral histories with community members.
                     </p>
                     <p>
-                        Back in the lab, models are processed and optimized for long-term archiving and real-time rendering. Those assets are then assembled into interactive prototypes that connect interpretive content (audio/visual recordings featuring community-provided context).
+                        Alongside technical documentation, BEDCHI prioritizes capturing Indigenous knowledge and cultural context through recorded interviews, traditional narratives, and place-based storytelling. These ethnographic and oral historical components are essential to understanding the significance of material culture and sites, ensuring that digital representations are grounded in community perspectives and traditional knowledge.
+                    </p>
+                    <p>
+                        Back in the lab, 3D models are processed and optimized for long-term archiving and real-time rendering. These assets are then assembled into interactive prototypes that integrate interpretive content—including audio and visual recordings featuring community-provided context, elder narratives, and ethnographic documentation—creating meaningful connections between objects, places, and the cultural knowledge they embody.
                     </p>
                 </div>
             </div>
@@ -380,7 +445,7 @@
                         BEDCHI's mission is to document and preserve cultural heritage sites and landscapes through collaborative digital documentation, supporting Indigenous interpretive authority and fostering shared understanding through community-engaged research and education.
                     </p>
                     <p>
-                        BEDCHI is achieved through hands-on workshops that emphasize reproducible methods, collaborative review, ethically grounded work, and indigenous interpretive sovereignty, from capture through publication.
+                        This work is achieved through hands-on workshops that emphasize reproducible methods, collaborative review, ethically grounded practice, and Indigenous interpretive sovereignty, from capture through publication.
                     </p>
                 </div>
                 <div class="image-large">
@@ -397,6 +462,14 @@
                     <p>
                         The Bears Ears Digital Cultural Heritage Initiative documents and interprets cultural heritage sites and landscapes through 3D scanning, immersive visualization, and community-engaged research in partnership with Indigenous communities, researchers, and land managers.
                     </p>
+                    <div class="footer-funders">
+                        <h4>Major Funders</h4>
+                        <div class="footer-funders-logos">
+                            <img src="../partners/ifr-logo.png" alt="Institute for Field Research" class="footer-funder-logo">
+                            <img src="../partners/cnha-logo.png" alt="Canyonlands Natural History Association" class="footer-funder-logo">
+                            <img src="../partners/nhmlac-logo.png" alt="Natural History Museum of Los Angeles County" class="footer-funder-logo">
+                        </div>
+                    </div>
                 </div>
                 <div class="footer-section">
                     <h3>Quick Links</h3>
@@ -414,6 +487,14 @@
                         University of Southern California<br>
                         Department of Anthropology
                     </p>
+                    <div class="footer-funders">
+                        <h4>Major Funders</h4>
+                        <div class="footer-funders-logos">
+                            <img src="../partners/ifr-logo.png" alt="Institute for Field Research" class="footer-funder-logo">
+                            <img src="../partners/cnha-logo.png" alt="Canyonlands Natural History Association" class="footer-funder-logo">
+                            <img src="../partners/nhmlac-logo.png" alt="Natural History Museum of Los Angeles County" class="footer-funder-logo">
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="footer-bottom">

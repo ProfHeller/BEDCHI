@@ -92,7 +92,7 @@
             max-width: 500px;
             width: 100%;
             height: auto;
-            filter: invert(1) sepia(1) saturate(3) hue-rotate(20deg) brightness(1.1);
+            filter: invert(1) brightness(2);
         }
 
         .content-section {
@@ -354,6 +354,68 @@
                 gap: 30px;
             }
         }
+
+
+
+
+
+
+
+        @media (max-width: 768px) {
+            .funders-logos {
+                gap: 40px;
+            }
+
+            .funder-logo {
+                max-width: 150px;
+                height: 60px;
+            }
+        }
+
+        .footer-funders {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-funders h4 {
+            color: #ff7e22;
+            font-size: 0.9em;
+            margin-bottom: 15px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .footer-funders-logos {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .footer-funder-logo {
+            max-width: 120px;
+            height: 50px;
+            object-fit: contain;
+            opacity: 0.85;
+            transition: opacity 0.3s ease;
+        }
+
+        .footer-funder-logo:hover {
+            opacity: 1;
+        }
+
+        @media (max-width: 768px) {
+            .footer-funders-logos {
+                gap: 15px;
+            }
+
+            .footer-funder-logo {
+                max-width: 100px;
+                height: 40px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -382,7 +444,7 @@
             <div class="content-with-image">
                 <div>
                     <p>
-                        BEDCHI welcomes students, volunteers, and professionals interested in digital cultural heritage documentation, community-engaged research, and Indigenous collaboration. Whether you're looking to gain hands-on field experience, develop technical skills, or contribute to meaningful heritage preservation work, there are opportunities to get involved.
+                        BEDCHI welcomes students, volunteers, and professionals interested in collaborative cultural heritage documentation that centers Indigenous voices and community knowledge. Working alongside tribal partners, federal land managers, and cultural experts, participants gain hands-on experience in ethnographic fieldwork, oral history recording, and digital documentation methods while contributing to meaningful heritage preservation work grounded in Indigenous interpretive authority.
                     </p>
                 </div>
                 <div class="image-large">
@@ -399,17 +461,20 @@
                 <div>
                     <h2>Field School Opportunities</h2>
                     <p>
-                        BEDCHI hosts field schools and workshop-based projects in the Bears Ears region, providing intensive training in digital documentation methods alongside community-engaged research practices.
+                        BEDCHI hosts field schools and workshop-based projects in the Bears Ears region, providing intensive training in ethnographic documentation, oral history recording, and digital heritage methods. Working in collaboration with tribal cultural experts, federal land managers from the U.S. Forest Service and Bureau of Land Management, and museum professionals, students gain experience in community-centered research that bridges traditional knowledge and digital technologies.
                     </p>
 
                     <h3>What You'll Learn</h3>
                     <ul>
+                        <li>Ethnographic fieldwork methods and oral history interviewing techniques</li>
+                        <li>Collaborative research protocols with Indigenous communities</li>
                         <li>Photogrammetry techniques (handheld and drone-based 3D capture)</li>
                         <li>360° panoramic documentation</li>
                         <li>3D model processing and optimization</li>
                         <li>Real-time rendering and immersive visualization</li>
-                        <li>Ethical protocols for working with Indigenous communities</li>
-                        <li>Collaborative research methodologies</li>
+                        <li>Working with federal cultural resource management programs</li>
+                        <li>Ethical protocols and Indigenous interpretive sovereignty</li>
+                        <li>Place-based storytelling and cultural context documentation</li>
                     </ul>
                 </div>
             </div>
@@ -441,14 +506,16 @@
                 <div>
                     <h2>Volunteer Opportunities</h2>
                     <p>
-                        We welcome volunteers to assist with various aspects of the project, from field documentation to post-processing and digital asset management.
+                        We welcome volunteers to assist with various aspects of the project, from ethnographic fieldwork and oral history recording to digital asset management and community outreach. Volunteers work alongside tribal partners, federal agencies, and cultural heritage professionals in meaningful collaborative efforts.
                     </p>
 
                     <h3>Ways to Contribute</h3>
                     <ul>
-                        <li><strong>Field Documentation:</strong> Participate in on-site recording sessions in the Bears Ears region</li>
+                        <li><strong>Ethnographic Documentation:</strong> Assist with oral history interviews and cultural context recording</li>
+                        <li><strong>Field Documentation:</strong> Participate in on-site 3D scanning and photography sessions</li>
+                        <li><strong>Community Engagement:</strong> Support collaborative workshops and tribal consultation processes</li>
                         <li><strong>Data Processing:</strong> Help process and optimize 3D models for archiving and visualization</li>
-                        <li><strong>Metadata Management:</strong> Assist with cataloging and organizing digital assets</li>
+                        <li><strong>Metadata Management:</strong> Assist with cataloging cultural materials and organizing digital assets</li>
                         <li><strong>Outreach & Education:</strong> Support educational programs and public engagement activities</li>
                         <li><strong>Web Development:</strong> Contribute to digital platforms and interactive experiences</li>
                     </ul>
@@ -460,8 +527,10 @@
 
             <h3>Volunteer Benefits</h3>
             <ul>
-                <li>Hands-on experience with cutting-edge digital heritage technology</li>
-                <li>Training in ethical community-engaged research practices</li>
+                <li>Experience in collaborative, community-centered cultural heritage research</li>
+                <li>Training in ethnographic methods and oral history recording</li>
+                <li>Hands-on experience with digital heritage technologies</li>
+                <li>Working relationships with tribal partners and federal land management agencies</li>
                 <li>Networking with professionals in archaeology, anthropology, and digital humanities</li>
                 <li>Contribution to meaningful Indigenous cultural heritage preservation</li>
                 <li>Potential co-authorship opportunities on publications and presentations</li>
@@ -473,14 +542,17 @@
         <div class="content-section">
             <h2>Research Collaborations</h2>
             <p>
-                BEDCHI supports collaborative research projects that advance digital heritage methodologies, Indigenous interpretive authority, and community-engaged documentation practices. We welcome proposals from researchers, institutions, and tribal organizations interested in partnership.
+                BEDCHI supports collaborative research projects that advance digital heritage methodologies, Indigenous interpretive authority, and community-engaged documentation practices. We work in partnership with tribal nations, federal land management agencies (U.S. Forest Service, Bureau of Land Management), museums, and academic institutions to develop ethical, community-centered approaches to cultural heritage preservation and interpretation.
             </p>
 
             <h3>Areas of Collaboration</h3>
             <ul>
-                <li>Digital documentation workflows and technical development</li>
+                <li>Ethnographic documentation and oral history methodologies</li>
+                <li>Collaborative research protocols with tribal partners and federal agencies</li>
                 <li>Indigenous knowledge systems and interpretive frameworks</li>
+                <li>Digital documentation workflows and technical development</li>
                 <li>Immersive visualization and virtual reality applications</li>
+                <li>Federal cultural resource management and site protection</li>
                 <li>Long-term digital preservation and archival strategies</li>
                 <li>Educational programming and public outreach</li>
             </ul>
