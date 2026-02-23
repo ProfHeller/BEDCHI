@@ -2,8 +2,18 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>BEDCHI Archive</title>
+    
+    <!-- Vision Pro Optimizations -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="BEDCHI">
+    <meta name="supported-color-schemes" content="dark">
+    
+    <!-- Preload critical 3D viewer -->
+    <link rel="modulepreload" href="https://ajax.googleapis.com/ajax/libs/model-viewer/3.3.0/model-viewer.min.js">
+    
     <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.3.0/model-viewer.min.js"></script>
     <style>
         * {
@@ -409,6 +419,66 @@
             border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
 
+        /* Video Player */
+        .video-section {
+            margin-top: 25px;
+            padding: 25px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .video-section h3 {
+            font-size: 1.3em;
+            margin-bottom: 15px;
+            color: #ff7e22;
+            font-weight: 600;
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            background: #000;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 15px;
+        }
+
+        .video-container video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .video-caption {
+            font-size: 0.95em;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.7);
+            font-style: italic;
+        }
+
+        .video-placeholder {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: rgba(255, 255, 255, 0.5);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .video-placeholder-icon {
+            font-size: 3em;
+            margin-bottom: 10px;
+        }
+
 
 
             content: '';
@@ -675,6 +745,44 @@
             opacity: 1;
         }
 
+        /* Vision Pro Optimizations */
+        @media (min-width: 1920px) and (min-height: 1080px) {
+            /* Larger displays like Vision Pro */
+            body {
+                font-size: 18px;
+            }
+            
+            .archive-title {
+                font-size: 3.5em;
+            }
+            
+            model-viewer {
+                height: 800px;
+            }
+            
+            .model-card {
+                padding: 25px;
+            }
+            
+            .model-name {
+                font-size: 1.4em;
+            }
+        }
+        
+        /* Enhanced touch targets for Vision Pro gestures */
+        @supports (-webkit-overflow-scrolling: touch) {
+            button, .model-card, .nav-link {
+                min-height: 44px;
+                min-width: 44px;
+            }
+        }
+        
+        /* Smooth scrolling for Vision Pro */
+        * {
+            -webkit-overflow-scrolling: touch;
+            scroll-behavior: smooth;
+        }
+
         @media (max-width: 768px) {
             .funders-logos {
                 gap: 40px;
@@ -799,7 +907,19 @@
                         ar-modes="scene-viewer quick-look"
                         shadow-intensity="1"
                         shadow-softness="1"
-                        ar-placement="floor">
+                        ar-placement="floor"
+                        
+                        exposure="1.2"
+                        tone-mapping="commerce"
+                        environment-image="neutral"
+                        
+                        max-camera-orbit="auto auto 10m"
+                        min-camera-orbit="auto auto 0.5m"
+                        
+                        interaction-prompt="auto"
+                        interaction-prompt-threshold="500"
+                        
+                        reveal="auto">
                         <button slot="ar-button" class="ar-button">
                             📱 View in AR
                         </button>
@@ -826,6 +946,22 @@
                         <div class="metadata-value" id="metadataValue2"></div>
                     </div>
                     <div class="metadata-description" id="metadataDescription"></div>
+                </div>
+
+                <!-- Video Player Section -->
+                <div id="videoSection" class="video-section" style="display: none;">
+                    <h3>📹 Related Video</h3>
+                    <div class="video-container">
+                        <video id="videoPlayer" controls preload="metadata">
+                            <source id="videoSource" src="" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                        <div id="videoPlaceholder" class="video-placeholder">
+                            <div class="video-placeholder-icon">🎬</div>
+                            <p>No video available for this item</p>
+                        </div>
+                    </div>
+                    <p id="videoCaption" class="video-caption"></p>
                 </div>
             </div>
         </div>
@@ -888,6 +1024,8 @@
                 url: 'models/owl/owl.glb',
                 iosUrl: 'models/owl/owl.usdz',
                 audio: 'models/owl/owl.mp3',
+                video: 'models/owl/owl-video.mp4',
+                videoCaption: 'Elder discussion of owl symbolism in Zuni cosmology and traditional pottery techniques.',
                 metadata: {
                     museum: 'Natural History Museum of Los Angeles County',
                     accession: 'A.8590.66-3',
@@ -1114,6 +1252,33 @@
             console.log('Cards appended to library');
         }
 
+        // Vision Pro Detection and Optimization
+        const isVisionPro = navigator.userAgent.includes('VisionOS') || 
+                           (window.screen.width >= 1920 && window.screen.height >= 1080);
+        
+        if (isVisionPro) {
+            console.log('Vision Pro detected - enabling enhanced features');
+            
+            // Enhance model-viewer for Vision Pro
+            viewer.setAttribute('exposure', '1.4');
+            viewer.setAttribute('environment-image', 'neutral');
+            
+            // Update AR button text for Vision Pro
+            const arButton = viewer.querySelector('[slot="ar-button"]');
+            if (arButton) {
+                arButton.innerHTML = '🥽 View in Spatial Reality';
+            }
+            
+            // Add Vision Pro specific instruction
+            const instructionsList = document.querySelector('.instructions-list');
+            if (instructionsList) {
+                const visionProTip = document.createElement('li');
+                visionProTip.textContent = 'On Vision Pro: Tap with eyes and pinch to interact';
+                visionProTip.style.color = '#ff7e22';
+                instructionsList.appendChild(visionProTip);
+            }
+        }
+
         // Initial render
         renderModels();
 
@@ -1126,6 +1291,15 @@
             // Select new model
             cardElement.classList.add('selected');
             selectedModel = models[index];
+            
+            // Scroll to viewer section smoothly
+            const viewerSection = document.querySelector('.viewer-section');
+            if (viewerSection) {
+                viewerSection.scrollIntoView({ 
+                    behavior: 'smooth', 
+                    block: 'start'
+                });
+            }
             
             // Hide placeholder, show loading spinner
             placeholder.style.display = 'none';
@@ -1200,12 +1374,42 @@
                 playAudioButton.classList.remove('active');
                 audioControls.classList.remove('active');
             }
+            
+            // Handle video player visibility and source
+            const videoSection = document.getElementById('videoSection');
+            const videoPlayer = document.getElementById('videoPlayer');
+            const videoSource = document.getElementById('videoSource');
+            const videoCaption = document.getElementById('videoCaption');
+            const videoPlaceholder = document.getElementById('videoPlaceholder');
+            
+            if (selectedModel.video) {
+                videoSection.style.display = 'block';
+                videoSource.src = selectedModel.video;
+                videoPlayer.load();
+                videoPlayer.style.display = 'block';
+                videoPlaceholder.style.display = 'none';
+                videoCaption.textContent = selectedModel.videoCaption || '';
+            } else {
+                videoSection.style.display = 'none';
+                videoPlayer.pause();
+                videoSource.src = '';
+                videoPlayer.style.display = 'none';
+                videoPlaceholder.style.display = 'flex';
+            }
         }
 
         // Play Audio button click handler
         playAudioButton.addEventListener('click', () => {
             if (selectedModel && selectedModel.audio) {
                 audioControls.classList.add('active');
+                
+                // Enable spatial audio on Vision Pro
+                if (isVisionPro && audioPlayer.setSinkId) {
+                    audioPlayer.setSinkId('').catch(err => {
+                        console.log('Spatial audio setup:', err);
+                    });
+                }
+                
                 audioPlayer.play().catch(err => {
                     console.log('Audio play prevented:', err);
                 });
