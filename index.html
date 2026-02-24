@@ -1497,13 +1497,13 @@
             viewer.addEventListener('load', handleLoadComplete, { once: true });
             viewer.addEventListener('model-visibility', handleLoadComplete, { once: true });
             
-            // Fallback timeout in case events don't fire
+            // Fallback timeout in case events don't fire (longer for large models like hogans)
             setTimeout(() => {
                 if (!loadHandled) {
                     console.log('Load timeout - showing model anyway');
                     handleLoadComplete();
                 }
-            }, 3000); // 3 second timeout
+            }, 15000); // 15 second timeout for large models
             
             // Handle audio button visibility
             if (selectedModel.audio) {
@@ -1576,13 +1576,34 @@
             console.log('Model loaded successfully');
         });
 
+        let errorCount = 0;
+        let lastErrorModel = '';
+        
         viewer.addEventListener('error', (event) => {
             // Ignore errors from clearing the viewer (empty src)
             if (!viewer.src || viewer.src === '' || viewer.src === window.location.href) {
                 return;
             }
-            console.error('Error loading model:', event);
-            alert('Error loading 3D model. Please try another one.');
+            
+            const currentModel = viewer.src;
+            
+            // Reset error count if switching to a different model
+            if (currentModel !== lastErrorModel) {
+                errorCount = 0;
+                lastErrorModel = currentModel;
+            }
+            
+            errorCount++;
+            console.error('Error loading model (attempt ' + errorCount + '):', currentModel);
+            
+            // Only show alert after multiple failures (not just network slowness)
+            if (errorCount >= 3) {
+                console.error('Model failed to load after multiple attempts:', event);
+                alert('Error loading 3D model. This model may be too large or the file may be missing. Please try another one.');
+                errorCount = 0; // Reset for next attempt
+            } else {
+                console.log('Retrying model load...');
+            }
         });
 
         }); // End DOMContentLoaded
