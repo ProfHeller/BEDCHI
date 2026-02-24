@@ -1447,7 +1447,20 @@
             // Handle audio button visibility
             if (selectedModel.audio) {
                 audioPlayer.src = selectedModel.audio;
-                playAudioButton.classList.add('active');
+                
+                // Check if audio file actually exists
+                audioPlayer.onerror = () => {
+                    console.log('Audio file not found:', selectedModel.audio);
+                    playAudioButton.classList.remove('active');
+                    audioControls.classList.remove('active');
+                    audioPlayer.src = '';
+                };
+                
+                // If audio loads successfully, show button
+                audioPlayer.onloadeddata = () => {
+                    playAudioButton.classList.add('active');
+                };
+                
                 audioControls.classList.remove('active');
             } else {
                 audioPlayer.pause();
