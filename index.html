@@ -1472,6 +1472,14 @@
             // Remove iOS source attribute
             viewer.removeAttribute('ios-src');
             
+            // Warn user about large site models
+            if (selectedModel.category === 'sites') {
+                console.log('Loading large site model:', selectedModel.name);
+                loadingSpinner.querySelector('p').textContent = 'Loading large model... this may take 30-60 seconds';
+            } else {
+                loadingSpinner.querySelector('p').textContent = 'Loading model...';
+            }
+            
             // Load the new model (this will replace the old one)
             viewer.src = selectedModel.url;
             
@@ -1497,13 +1505,14 @@
             viewer.addEventListener('load', handleLoadComplete, { once: true });
             viewer.addEventListener('model-visibility', handleLoadComplete, { once: true });
             
-            // Fallback timeout in case events don't fire (longer for large models like hogans)
+            // Fallback timeout in case events don't fire (longer for large site models)
+            const timeoutDuration = selectedModel.category === 'sites' ? 60000 : 15000; // 60s for sites, 15s for objects
             setTimeout(() => {
                 if (!loadHandled) {
                     console.log('Load timeout - showing model anyway');
                     handleLoadComplete();
                 }
-            }, 15000); // 15 second timeout for large models
+            }, timeoutDuration);
             
             // Handle audio button visibility
             if (selectedModel.audio) {
