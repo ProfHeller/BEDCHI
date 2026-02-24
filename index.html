@@ -1404,13 +1404,20 @@
             viewer.src = '';
             viewer.removeAttribute('ios-src');
             
-            // Load the model for 3D preview immediately
-            viewer.src = selectedModel.url;
+            // Force the viewer to remain hidden and clear
+            viewer.style.display = 'none';
+            viewer.style.visibility = 'hidden';
             
-            // Set iOS-specific AR source if provided (for USDZ files)
-            if (selectedModel.iosUrl) {
-                viewer.setAttribute('ios-src', selectedModel.iosUrl);
-            }
+            // Small delay to ensure old model is fully cleared
+            setTimeout(() => {
+                // Load the model for 3D preview
+                viewer.src = selectedModel.url;
+                
+                // Set iOS-specific AR source if provided (for USDZ files)
+                if (selectedModel.iosUrl) {
+                    viewer.setAttribute('ios-src', selectedModel.iosUrl);
+                }
+            }, 50);
             
             // Set up loading complete handler
             let loadHandled = false;
@@ -1421,6 +1428,7 @@
                 
                 loadingSpinner.style.display = 'none';
                 viewer.style.display = 'block';
+                viewer.style.visibility = 'visible';
                 
             };
             
