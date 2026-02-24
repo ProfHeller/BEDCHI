@@ -1007,6 +1007,10 @@
     </footer>
 
     <script>
+        // Wait for DOM to be fully loaded before running code
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM loaded, initializing BEDCHI Archive...');
+            
         // Library of 3D models
         // For USDZ files: provide the filename you uploaded to GitHub
         // The 'url' is used for browser 3D preview (use GLB for best results)
@@ -1367,8 +1371,7 @@
             instructionsList.appendChild(li);
         });
         
-        // Update instructions based on platform
-        const instructionsList = document.querySelector('.instructions-list');
+        // Update instructions based on platform (reuse the same instructionsList)
         if (instructionsList) {
             instructionsList.innerHTML = '';
             
@@ -1581,6 +1584,8 @@
             console.error('Error loading model:', event);
             alert('Error loading 3D model. Please try another one.');
         });
+
+        }); // End DOMContentLoaded
 
     </script>
 </body>
