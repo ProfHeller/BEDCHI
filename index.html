@@ -1400,15 +1400,14 @@
             
             metadataDescription.textContent = selectedModel.metadata.description;
             
-            // Clear the viewer before loading new model
+            // Hide viewer before loading new model
             viewer.style.display = 'none';
             viewer.style.visibility = 'hidden';
             
-            // Clear old model
-            viewer.src = '';
+            // Remove iOS source attribute
             viewer.removeAttribute('ios-src');
             
-            // Load the model for 3D preview
+            // Load the new model (this will replace the old one)
             viewer.src = selectedModel.url;
             
             // Set iOS-specific AR source if provided (for USDZ files)
@@ -1513,6 +1512,10 @@
         });
 
         viewer.addEventListener('error', (event) => {
+            // Ignore errors from clearing the viewer (empty src)
+            if (!viewer.src || viewer.src === '' || viewer.src === window.location.href) {
+                return;
+            }
             console.error('Error loading model:', event);
             alert('Error loading 3D model. Please try another one.');
         });
