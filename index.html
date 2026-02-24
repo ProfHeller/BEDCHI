@@ -1017,6 +1017,53 @@
         // The 'audio' (optional) is the audio file to play when model loads
         // The 'metadata' contains detailed information displayed in the right column
         const models = [
+            // Models with Video (3)
+            {
+                name: 'Seed Jar',
+                category: 'objects',
+                culture: 'zuni',
+                url: 'models/seed-jar/seed-jar.glb',
+                iosUrl: 'models/seed-jar/seed-jar.usdz',
+                audio: 'models/seed-jar/seed-jar.mp3',
+                video: 'models/seed-jar/seed-jar.mp4',
+                videoCaption: 'Demonstration of traditional Zuni seed storage and scattering ceremonies, explaining the cultural significance of seed jars in agricultural practices.',
+                metadata: {
+                    museum: 'Natural History Museum of Los Angeles County',
+                    accession: 'F.A.109.91-234',
+                    description: 'A traditional Zuni seed jar used for storing and scattering seeds during agricultural ceremonies and planting seasons. These specialized vessels play a vital role in Zuni agricultural practices, connecting material culture with spiritual beliefs about fertility, growth, and the cycle of life. The jar\'s design reflects both practical functionality and ceremonial significance.'
+                }
+            },
+            {
+                name: 'Gourd Rattle',
+                category: 'objects',
+                culture: 'zuni',
+                url: 'models/rattle/rattle.glb',
+                iosUrl: 'models/rattle/rattle.usdz',
+                audio: 'models/rattle/rattle.mp3',
+                video: 'models/rattle/rattle.mp4',
+                videoCaption: 'Demonstration of traditional gourd rattle use in Zuni ceremonial dances and songs, showing playing techniques and cultural context.',
+                metadata: {
+                    museum: 'Natural History Museum of Los Angeles County',
+                    accession: 'A.4515.30-76',
+                    description: 'A traditional Zuni gourd rattle used in ceremonial dances, songs, and religious observances. These rattles produce distinctive rhythmic sounds that accompany sacred performances and prayers. The gourd rattle exemplifies the integration of natural materials with ceremonial practice, serving as both a musical instrument and a spiritual tool in Zuni cultural traditions.'
+                }
+            },
+            {
+                name: 'Rainbird Vessel',
+                category: 'objects',
+                culture: 'zuni',
+                url: 'models/rainbird/rainbird.glb',
+                iosUrl: 'models/rainbird/rainbird.usdz',
+                audio: 'models/rainbird/rainbird.mp3',
+                video: 'models/rainbird/rainbird.mp4',
+                videoCaption: 'Exploration of rainbird symbolism in Zuni pottery, discussing the cultural significance of water and rain imagery in Pueblo traditions.',
+                metadata: {
+                    museum: 'Natural History Museum of Los Angeles County',
+                    accession: 'A.4850.40-1',
+                    description: 'A ceramic vessel featuring rainbird imagery, a powerful symbol in Zuni and broader Pueblo culture representing the connection between water, life, and spiritual practice. Rainbirds are messengers that bring rain and ensure agricultural fertility. This vessel demonstrates the integration of naturalistic bird forms with ceremonial and utilitarian pottery, showcasing the artistic and symbolic sophistication of Zuni ceramic traditions.'
+                }
+            },
+            // Zuni Objects (Audio Only)
             {
                 name: 'Owl Effigy Vessel',
                 category: 'objects',
@@ -1024,8 +1071,6 @@
                 url: 'models/owl/owl.glb',
                 iosUrl: 'models/owl/owl.usdz',
                 audio: 'models/owl/owl.mp3',
-                video: 'models/owl/owl.mp4',
-                videoCaption: 'Elder discussion of owl symbolism in Zuni cosmology and traditional pottery techniques.',
                 metadata: {
                     museum: 'Natural History Museum of Los Angeles County',
                     accession: 'A.8590.66-3',
@@ -1098,50 +1143,32 @@
                 }
             },
             {
-                name: 'Seed Jar',
+                name: 'Waterbird Vessel',
                 category: 'objects',
                 culture: 'zuni',
-                url: 'models/seed-jar/seed-jar.glb',
-                iosUrl: 'models/seed-jar/seed-jar.usdz',
-                audio: 'models/seed-jar/seed-jar.mp3',
-                video: 'models/seed-jar/seed-jar.mp4',
-                videoCaption: 'Demonstration of traditional Zuni seed storage and scattering ceremonies, explaining the cultural significance of seed jars in agricultural practices.',
+                url: 'models/waterbird/waterbird.glb',
+                iosUrl: 'models/waterbird/waterbird.usdz',
+                audio: 'models/waterbird/waterbird.mp3',
                 metadata: {
                     museum: 'Natural History Museum of Los Angeles County',
-                    accession: 'F.A.109.91-234',
-                    description: 'A traditional Zuni seed jar used for storing and scattering seeds during agricultural ceremonies and planting seasons. These specialized vessels play a vital role in Zuni agricultural practices, connecting material culture with spiritual beliefs about fertility, growth, and the cycle of life. The jar\'s design reflects both practical functionality and ceremonial significance.'
+                    accession: 'A.6076.80-24',
+                    description: 'A ceramic vessel featuring waterbird imagery, representing the vital relationship between water, wildlife, and Zuni life. Waterbirds serve as symbols of aquatic abundance and the importance of wetland environments in Pueblo cosmology. This vessel exemplifies traditional Zuni pottery techniques while incorporating naturalistic depictions of birds associated with water sources, reflecting the cultural significance of water in the arid Southwest.'
                 }
             },
             {
-                name: 'Gourd Rattle',
+                name: 'Duck Vessel 1',
                 category: 'objects',
                 culture: 'zuni',
-                url: 'models/rattle/rattle.glb',
-                iosUrl: 'models/rattle/rattle.usdz',
-                audio: 'models/rattle/rattle.mp3',
-                video: 'models/rattle/rattle.mp4',
-                videoCaption: 'Demonstration of traditional gourd rattle use in Zuni ceremonial dances and songs, showing playing techniques and cultural context.',
+                url: 'models/duck-1/duck-1.glb',
+                iosUrl: 'models/duck-1/duck-1.usdz',
+                audio: 'models/duck-1/duck-1.mp3',
                 metadata: {
                     museum: 'Natural History Museum of Los Angeles County',
-                    accession: 'A.4515.30-76',
-                    description: 'A traditional Zuni gourd rattle used in ceremonial dances, songs, and religious observances. These rattles produce distinctive rhythmic sounds that accompany sacred performances and prayers. The gourd rattle exemplifies the integration of natural materials with ceremonial practice, serving as both a musical instrument and a spiritual tool in Zuni cultural traditions.'
+                    accession: 'A.5759-13',
+                    description: 'A ceramic duck effigy vessel showcasing traditional Zuni pottery artistry. Ducks hold cultural significance as water-associated creatures, connecting to themes of migration, seasonal cycles, and aquatic resources. This vessel demonstrates the skilled craftsmanship of Zuni potters in creating naturalistic animal forms that blend functional and ceremonial purposes.'
                 }
             },
-            {
-                name: 'Rainbird Vessel',
-                category: 'objects',
-                culture: 'zuni',
-                url: 'models/rainbird/rainbird.glb',
-                iosUrl: 'models/rainbird/rainbird.usdz',
-                audio: 'models/rainbird/rainbird.mp3',
-                video: 'models/rainbird/rainbird.mp4',
-                videoCaption: 'Exploration of rainbird symbolism in Zuni pottery, discussing the cultural significance of water and rain imagery in Pueblo traditions.',
-                metadata: {
-                    museum: 'Natural History Museum of Los Angeles County',
-                    accession: 'A.4850.40-1',
-                    description: 'A ceramic vessel featuring rainbird imagery, a powerful symbol in Zuni and broader Pueblo culture representing the connection between water, life, and spiritual practice. Rainbirds are messengers that bring rain and ensure agricultural fertility. This vessel demonstrates the integration of naturalistic bird forms with ceremonial and utilitarian pottery, showcasing the artistic and symbolic sophistication of Zuni ceramic traditions.'
-                }
-            },
+            // Zuni Sites
             {
                 name: 'Rock Info',
                 category: 'sites',
@@ -1155,6 +1182,7 @@
                     description: 'A 3D model of a culturally significant rock formation or landscape feature from the Bears Ears region. This digital documentation preserves the spatial context and geological characteristics of the site.'
                 }
             },
+            // Navajo Objects & Sites
             {
                 name: "Laura's Hogan",
                 category: 'sites',
