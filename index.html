@@ -862,11 +862,8 @@
 
         <div class="instructions-banner">
             <h3>Instructions</h3>
-            <ul class="instructions-list">
-                <li>Select a model from the library</li>
-                <li>Rotate and zoom the 3D preview</li>
-                <li>Tap "Play Audio" for information</li>
-                <li>Tap "View in AR" to place in your space</li>
+            <ul class="instructions-list" id="instructionsList">
+                <!-- Instructions will be dynamically loaded based on platform -->
             </ul>
         </div>
         
@@ -1325,9 +1322,82 @@
             console.log('Cards appended to library');
         }
 
-        // Vision Pro Detection and Optimization
+        // Platform Detection
+        const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
         const isVisionPro = navigator.userAgent.includes('VisionOS') || 
                            (window.screen.width >= 1920 && window.screen.height >= 1080);
+        const isDesktop = !isMobile && !isVisionPro;
+        
+        // Load platform-specific instructions
+        const instructionsList = document.getElementById('instructionsList');
+        let instructions = [];
+        
+        if (isVisionPro) {
+            // Vision Pro instructions
+            instructions = [
+                'Look at a model card and pinch to select',
+                'Use pinch and drag to rotate the 3D model',
+                'Pinch to zoom in and out',
+                'Tap "Play Audio" for narration',
+                'Tap "View in Spatial Reality" to place in your space'
+            ];
+        } else if (isMobile) {
+            // Mobile/Tablet instructions
+            instructions = [
+                'Tap a model from the library',
+                'Swipe to rotate, pinch to zoom',
+                'Tap "Play Audio" for information',
+                'Tap "View in AR" to place in your space'
+            ];
+        } else {
+            // Desktop instructions
+            instructions = [
+                'Click a model from the library',
+                'Click and drag to rotate the 3D preview',
+                'Scroll to zoom in and out',
+                'Click "Play Audio" for information',
+                'Use "View in AR" on mobile devices'
+            ];
+        }
+        
+        // Populate instructions
+        instructions.forEach(instruction => {
+            const li = document.createElement('li');
+            li.textContent = instruction;
+            instructionsList.appendChild(li);
+        });
+        
+        // Update instructions based on platform
+        const instructionsList = document.querySelector('.instructions-list');
+        if (instructionsList) {
+            instructionsList.innerHTML = '';
+            
+            if (isVisionPro) {
+                // Vision Pro instructions
+                instructionsList.innerHTML = `
+                    <li>Select a model with eye gaze and pinch</li>
+                    <li>Pinch and drag to rotate models</li>
+                    <li>Tap "Play Audio" for spatial narration</li>
+                    <li>Tap "View in Spatial Reality" for AR</li>
+                `;
+            } else if (isMobile) {
+                // Mobile/tablet instructions
+                instructionsList.innerHTML = `
+                    <li>Tap a model from the library</li>
+                    <li>Swipe to rotate, pinch to zoom</li>
+                    <li>Tap "Play Audio" for information</li>
+                    <li>Tap "View in AR" to place in your space</li>
+                `;
+            } else {
+                // Desktop instructions
+                instructionsList.innerHTML = `
+                    <li>Click a model from the library</li>
+                    <li>Click and drag to rotate, scroll to zoom</li>
+                    <li>Click "Play Audio" for information</li>
+                    <li>Use mobile device for AR viewing</li>
+                `;
+            }
+        }
         
         if (isVisionPro) {
             console.log('Vision Pro detected - enabling enhanced features');
@@ -1342,14 +1412,6 @@
                 arButton.innerHTML = '🥽 View in Spatial Reality';
             }
             
-            // Add Vision Pro specific instruction
-            const instructionsList = document.querySelector('.instructions-list');
-            if (instructionsList) {
-                const visionProTip = document.createElement('li');
-                visionProTip.textContent = 'On Vision Pro: Tap with eyes and pinch to interact';
-                visionProTip.style.color = '#ff7e22';
-                instructionsList.appendChild(visionProTip);
-            }
         }
 
         // Initial render
