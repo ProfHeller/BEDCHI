@@ -899,7 +899,6 @@
                         style="display: none;"
                         camera-controls 
                         touch-action="pan-y"
-                        auto-rotate
                         ar
                         ar-modes="webxr scene-viewer quick-look"
                         shadow-intensity="1"
@@ -950,7 +949,15 @@
                 <div id="videoSection" class="video-section" style="display: none;">
                     <h3>📹 Related Video</h3>
                     <div class="video-container">
-                        <video id="videoPlayer" controls preload="metadata">
+                        <video id="videoPlayer" 
+                               controls 
+                               preload="none"
+                               playsinline
+                               webkit-playsinline
+                               x-webkit-airplay="allow"
+                               disablePictureInPicture
+                               controlslist="nodownload"
+                               style="max-height: 400px;">
                             <source id="videoSource" src="" type="video/mp4">
                             Your browser does not support the video tag.
                         </video>
@@ -1192,13 +1199,14 @@
                 iosUrl: 'models/moon-room/moon-room.usdz',
                 audio: 'models/moon-room/moon-room.mp3',
                 isInterior: true,
-                cameraOrbit: '0deg 75deg 0.5m',
-                cameraTarget: '0m 1.5m 0m',
-                fieldOfView: '60deg',
-                minCameraOrbit: 'auto auto 0.1m',
-                maxCameraOrbit: 'auto auto 2m',
+                cameraOrbit: '0deg 90deg 0.01m',
+                cameraTarget: '0m 0m 0m',
+                fieldOfView: '75deg',
+                minCameraOrbit: 'auto auto 0.01m',
+                maxCameraOrbit: 'auto auto 0.01m',
                 disableEnvironmentImage: true,
                 shadowIntensity: 0,
+                disableZoom: true,
                 metadata: {
                     location: 'Bears Ears National Monument, Utah',
                     date: '2024',
@@ -1535,11 +1543,11 @@
                 viewer.setAttribute('shadow-intensity', '1');
             }
             
-            // Disable auto-rotate for large site models (performance)
-            if (selectedModel.category === 'sites') {
-                viewer.removeAttribute('auto-rotate');
+            // Disable zoom for interior spaces (swivel in place)
+            if (selectedModel.disableZoom) {
+                viewer.setAttribute('disable-zoom', '');
             } else {
-                viewer.setAttribute('auto-rotate', '');
+                viewer.removeAttribute('disable-zoom');
             }
             
             // Set iOS-specific AR source if provided (for USDZ files)
@@ -1608,9 +1616,24 @@
             if (selectedModel.video) {
                 videoSection.style.display = 'block';
                 videoSource.src = selectedModel.video;
+                
+                // Vision Pro optimization: Force load to check compatibility
                 videoPlayer.load();
-                videoPlayer.style.display = 'block';
-                videoPlaceholder.style.display = 'none';
+                
+                // Add error handler for video loading issues
+                videoPlayer.onerror = () => {
+                    console.error('Video failed to load:', selectedModel.video);
+                    videoPlayer.style.display = 'none';
+                    videoPlaceholder.style.display = 'flex';
+                    videoPlaceholder.querySelector('p').textContent = 'Video unavailable on this device';
+                };
+                
+                // Show video when it can play
+                videoPlayer.onloadeddata = () => {
+                    videoPlayer.style.display = 'block';
+                    videoPlaceholder.style.display = 'none';
+                };
+                
                 videoCaption.textContent = selectedModel.videoCaption || '';
             } else {
                 videoSection.style.display = 'none';
