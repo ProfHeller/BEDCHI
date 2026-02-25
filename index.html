@@ -1191,10 +1191,18 @@
                 url: 'models/moon-room/moon-room.glb',
                 iosUrl: 'models/moon-room/moon-room.usdz',
                 audio: 'models/moon-room/moon-room.mp3',
+                isInterior: true,
+                cameraOrbit: '0deg 75deg 0.5m',
+                cameraTarget: '0m 1.5m 0m',
+                fieldOfView: '60deg',
+                minCameraOrbit: 'auto auto 0.1m',
+                maxCameraOrbit: 'auto auto 2m',
+                disableEnvironmentImage: true,
+                shadowIntensity: 0,
                 metadata: {
                     location: 'Bears Ears National Monument, Utah',
                     date: '2024',
-                    description: 'A 3D model of the Moon Room site, a culturally significant archaeological feature within the Bears Ears landscape. This digital documentation preserves the architectural and spatial characteristics of this important Zuni ancestral site.'
+                    description: 'An immersive 3D model of the Moon Room interior. Users experience this culturally significant archaeological space from within, exploring architectural features and cultural significance as if standing inside the room itself. This digital documentation preserves the spatial experience of this important Zuni ancestral site.'
                 }
             },
             // Navajo Objects & Sites
@@ -1496,6 +1504,36 @@
             
             // Load the new model (this will replace the old one)
             viewer.src = selectedModel.url;
+            
+            // Set custom camera properties for interior spaces (like Moon Room)
+            if (selectedModel.cameraOrbit) {
+                viewer.setAttribute('camera-orbit', selectedModel.cameraOrbit);
+            }
+            if (selectedModel.cameraTarget) {
+                viewer.setAttribute('camera-target', selectedModel.cameraTarget);
+            }
+            if (selectedModel.fieldOfView) {
+                viewer.setAttribute('field-of-view', selectedModel.fieldOfView);
+            }
+            if (selectedModel.minCameraOrbit) {
+                viewer.setAttribute('min-camera-orbit', selectedModel.minCameraOrbit);
+            }
+            if (selectedModel.maxCameraOrbit) {
+                viewer.setAttribute('max-camera-orbit', selectedModel.maxCameraOrbit);
+            }
+            
+            // Set rendering properties for interior spaces (unlit, smooth shading)
+            if (selectedModel.disableEnvironmentImage) {
+                viewer.removeAttribute('environment-image');
+            } else {
+                viewer.setAttribute('environment-image', 'neutral');
+            }
+            
+            if (selectedModel.shadowIntensity !== undefined) {
+                viewer.setAttribute('shadow-intensity', selectedModel.shadowIntensity);
+            } else {
+                viewer.setAttribute('shadow-intensity', '1');
+            }
             
             // Disable auto-rotate for large site models (performance)
             if (selectedModel.category === 'sites') {
