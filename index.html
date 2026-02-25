@@ -901,10 +901,11 @@
                         touch-action="pan-y"
                         auto-rotate
                         ar
-                        ar-modes="scene-viewer quick-look"
+                        ar-modes="webxr scene-viewer quick-look"
                         shadow-intensity="1"
                         shadow-softness="1"
                         ar-placement="floor"
+                        xr-environment
                         
                         exposure="1.2"
                         tone-mapping="commerce"
@@ -1183,13 +1184,26 @@
                     description: 'A 3D model of a culturally significant rock formation or landscape feature from the Bears Ears region. This digital documentation preserves the spatial context and geological characteristics of the site.'
                 }
             },
+            {
+                name: 'Moon Room',
+                category: 'sites',
+                culture: 'zuni',
+                url: 'models/moon-room/moon-room.glb',
+                iosUrl: 'models/moon-room/moon-room.usdz',
+                audio: 'models/moon-room/moon-room.mp3',
+                metadata: {
+                    location: 'Bears Ears National Monument, Utah',
+                    date: '2024',
+                    description: 'A 3D model of the Moon Room site, a culturally significant archaeological feature within the Bears Ears landscape. This digital documentation preserves the architectural and spatial characteristics of this important Zuni ancestral site.'
+                }
+            },
             // Navajo Objects & Sites
             {
                 name: "Laura's Hogan",
                 category: 'sites',
                 culture: 'navajo',
-                url: 'models/lauras-hogan/lauras-hogan-web.glb',      // Optimized for web (1024px textures)
-                iosUrl: 'models/lauras-hogan/lauras-hogan.usdz',      // Full quality for AR (4K textures)
+                url: 'models/lauras-hogan/lauras-hogan-web.glb',
+                iosUrl: 'models/lauras-hogan/lauras-hogan.usdz',
                 audio: 'models/lauras-hogan/lauras-hogan.mp3',
                 metadata: {
                     location: 'Bears Ears National Monument, Utah',
@@ -1482,6 +1496,13 @@
             
             // Load the new model (this will replace the old one)
             viewer.src = selectedModel.url;
+            
+            // Disable auto-rotate for large site models (performance)
+            if (selectedModel.category === 'sites') {
+                viewer.removeAttribute('auto-rotate');
+            } else {
+                viewer.setAttribute('auto-rotate', '');
+            }
             
             // Set iOS-specific AR source if provided (for USDZ files)
             if (selectedModel.iosUrl) {
