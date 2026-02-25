@@ -1512,11 +1512,47 @@
             // Load the new model (this will replace the old one)
             viewer.src = selectedModel.url;
             
+            // Set custom camera properties for interior spaces (like Moon Room)
+            if (selectedModel.cameraOrbit) {
+                viewer.setAttribute('camera-orbit', selectedModel.cameraOrbit);
+            }
+            if (selectedModel.cameraTarget) {
+                viewer.setAttribute('camera-target', selectedModel.cameraTarget);
+            }
+            if (selectedModel.fieldOfView) {
+                viewer.setAttribute('field-of-view', selectedModel.fieldOfView);
+            }
+            if (selectedModel.minCameraOrbit) {
+                viewer.setAttribute('min-camera-orbit', selectedModel.minCameraOrbit);
+            }
+            if (selectedModel.maxCameraOrbit) {
+                viewer.setAttribute('max-camera-orbit', selectedModel.maxCameraOrbit);
+            }
+            
+            // Set rendering properties for interior spaces (unlit, smooth shading)
+            if (selectedModel.disableEnvironmentImage) {
+                viewer.removeAttribute('environment-image');
+            } else {
+                viewer.setAttribute('environment-image', 'neutral');
+            }
+            
+            if (selectedModel.shadowIntensity !== undefined) {
+                viewer.setAttribute('shadow-intensity', selectedModel.shadowIntensity);
+            } else {
+                viewer.setAttribute('shadow-intensity', '1');
+            }
+            
+            // Disable zoom for interior spaces (swivel in place)
+            if (selectedModel.disableZoom) {
+                viewer.setAttribute('disable-zoom', '');
+            } else {
+                viewer.removeAttribute('disable-zoom');
+            }
+            
             // Set iOS-specific AR source if provided (for USDZ files)
             if (selectedModel.iosUrl) {
                 viewer.setAttribute('ios-src', selectedModel.iosUrl);
             }
-            
             
             // Set up loading complete handler
             let loadHandled = false;
@@ -1578,22 +1614,29 @@
             
             if (selectedModel.video) {
                 videoSection.style.display = 'block';
+                videoSource.src = selectedModel.video;
                 
-                // Only reload video if it's a different video
-                if (videoSource.src !== selectedModel.video) {
-                    videoPlayer.pause();
-                    videoPlayer.currentTime = 0;
-                    videoSource.src = selectedModel.video;
-                    videoPlayer.load();
-                }
+                // Vision Pro optimization: Force load to check compatibility
+                videoPlayer.load();
+                
+                // Add error handler for video loading issues
+                videoPlayer.onerror = () => {
+                    console.error('Video failed to load:', selectedModel.video);
+                    videoPlayer.style.display = 'none';
+                    videoPlaceholder.style.display = 'flex';
+                    videoPlaceholder.querySelector('p').textContent = 'Video unavailable on this device';
+                };
+                
+                // Show video when it can play
+                videoPlayer.onloadeddata = () => {
+                    videoPlayer.style.display = 'block';
+                    videoPlaceholder.style.display = 'none';
+                };
                 
                 videoCaption.textContent = selectedModel.videoCaption || '';
-                videoPlayer.style.display = 'block';
-                videoPlaceholder.style.display = 'none';
             } else {
                 videoSection.style.display = 'none';
                 videoPlayer.pause();
-                videoPlayer.currentTime = 0;
                 videoSource.src = '';
                 videoPlayer.style.display = 'none';
                 videoPlaceholder.style.display = 'flex';
@@ -1623,22 +1666,34 @@
             console.log('Model loaded successfully');
         });
 
+        let errorCount = 0;
+        let lastErrorModel = '';
+        
         viewer.addEventListener('error', (event) => {
             // Ignore errors from clearing the viewer (empty src)
             if (!viewer.src || viewer.src === '' || viewer.src === window.location.href) {
                 return;
             }
-            console.error('Error loading model:', viewer.src);
-        });
-        
-        // Video player error handling (one-time setup)
-        const videoPlayer = document.getElementById('videoPlayer');
-        videoPlayer.addEventListener('error', (event) => {
-            console.error('Video playback error:', videoPlayer.querySelector('source').src);
-            const videoPlaceholder = document.getElementById('videoPlaceholder');
-            videoPlayer.style.display = 'none';
-            videoPlaceholder.style.display = 'flex';
-            videoPlaceholder.querySelector('p').textContent = 'Video unavailable';
+            
+            const currentModel = viewer.src;
+            
+            // Reset error count if switching to a different model
+            if (currentModel !== lastErrorModel) {
+                errorCount = 0;
+                lastErrorModel = currentModel;
+            }
+            
+            errorCount++;
+            console.error('Error loading model (attempt ' + errorCount + '):', currentModel);
+            
+            // Only show alert after multiple failures (not just network slowness)
+            if (errorCount >= 3) {
+                console.error('Model failed to load after multiple attempts:', event);
+                alert('Error loading 3D model. This model may be too large or the file may be missing. Please try another one.');
+                errorCount = 0; // Reset for next attempt
+            } else {
+                console.log('Retrying model load...');
+            }
         });
 
         }); // End DOMContentLoaded
