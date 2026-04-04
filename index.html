@@ -479,23 +479,6 @@
             margin-bottom: 10px;
         }
 
-
-
-            content: '';
-            position: absolute;
-            width: 2px;
-            height: 10px;
-            background: #ff7e22;
-            top: -3px;
-        }
-
-            left: 0;
-        }
-
-            right: 0;
-        }
-
-
         footer {
             background: rgba(0, 0, 0, 0.95);
             border-top: 1px solid rgba(102, 126, 234, 0.3);
@@ -950,7 +933,7 @@
                     <div class="video-container">
                         <video id="videoPlayer" 
                                controls 
-                               preload="none"
+                               preload="metadata"
                                playsinline
                                webkit-playsinline
                                x-webkit-airplay="allow"
@@ -1016,7 +999,6 @@
     <script>
         // Wait for DOM to be fully loaded before running code
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('DOM loaded, initializing BEDCHI Archive...');
             
         // Library of 3D models
         // For USDZ files: provide the filename you uploaded to GitHub
@@ -1320,18 +1302,12 @@
             // Clear current models
             modelLibrary.innerHTML = '';
             
-            console.log('Rendering models - category:', currentCategory, 'culture:', currentCulture);
-            console.log('Total models:', models.length);
-            
             // Filter models by both category and culture
             const filteredModels = models.filter(model => {
                 const matchesCategory = model.category === currentCategory;
                 const matchesCulture = currentCulture === 'all' || model.culture === currentCulture;
-                console.log('Model:', model.name, 'Category match:', matchesCategory, 'Culture match:', matchesCulture);
                 return matchesCategory && matchesCulture;
             });
-            
-            console.log('Filtered models:', filteredModels.length);
             
             filteredModels.forEach((model, filteredIndex) => {
                 const originalIndex = models.indexOf(model);
@@ -1352,7 +1328,6 @@
                 modelLibrary.appendChild(card);
             });
             
-            console.log('Cards appended to library');
         }
 
         // Platform Detection
@@ -1501,15 +1476,14 @@
             // Remove iOS source attribute
             viewer.removeAttribute('ios-src');
             
-            // Warn user about large site models
+            // Update loading message based on model size
             if (selectedModel.category === 'sites') {
-                console.log('Loading large site model:', selectedModel.name);
-                loadingSpinner.querySelector('p').textContent = 'Loading large model... this may take 30-60 seconds';
+                loadingSpinner.querySelector('p').textContent = 'Loading large model...';
             } else {
                 loadingSpinner.querySelector('p').textContent = 'Loading model...';
             }
             
-            // Load the new model (this will replace the old one)
+            // Load the new model
             viewer.src = selectedModel.url;
             
             // Set iOS-specific AR source if provided (for USDZ files)
@@ -1517,6 +1491,27 @@
                 viewer.setAttribute('ios-src', selectedModel.iosUrl);
             }
             
+            // Interior space settings (Moon Room)
+            if (selectedModel.isInterior) {
+                viewer.setAttribute('camera-orbit', selectedModel.cameraOrbit || '0deg 90deg 0.01m');
+                viewer.setAttribute('camera-target', selectedModel.cameraTarget || '0m 0m 0m');
+                viewer.setAttribute('field-of-view', selectedModel.fieldOfView || '75deg');
+                viewer.setAttribute('min-camera-orbit', selectedModel.minCameraOrbit || 'auto auto 0.01m');
+                viewer.setAttribute('max-camera-orbit', selectedModel.maxCameraOrbit || 'auto auto 0.01m');
+                if (selectedModel.disableZoom) viewer.setAttribute('disable-zoom', '');
+                if (selectedModel.disableEnvironmentImage) viewer.removeAttribute('environment-image');
+                if (selectedModel.shadowIntensity !== undefined) viewer.setAttribute('shadow-intensity', selectedModel.shadowIntensity);
+            } else {
+                // Reset to defaults for non-interior models
+                viewer.removeAttribute('camera-orbit');
+                viewer.removeAttribute('camera-target');
+                viewer.removeAttribute('field-of-view');
+                viewer.removeAttribute('disable-zoom');
+                viewer.setAttribute('min-camera-orbit', 'auto auto 0.5m');
+                viewer.setAttribute('max-camera-orbit', 'auto auto 10m');
+                viewer.setAttribute('environment-image', 'neutral');
+                viewer.setAttribute('shadow-intensity', '1');
+            }
             
             // Set up loading complete handler
             let loadHandled = false;
@@ -1528,21 +1523,18 @@
                 loadingSpinner.style.display = 'none';
                 viewer.style.display = 'block';
                 viewer.style.visibility = 'visible';
-                
             };
             
             // Try multiple events for better reliability
             viewer.addEventListener('load', handleLoadComplete, { once: true });
             viewer.addEventListener('model-visibility', handleLoadComplete, { once: true });
             
-            // Fallback timeout in case events don't fire (longer for large site models)
-            const timeoutDuration = selectedModel.category === 'sites' ? 60000 : 15000; // 60s for sites, 15s for objects
+            // Fallback timeout - shorter for better UX
             setTimeout(() => {
                 if (!loadHandled) {
-                    console.log('Load timeout - showing model anyway');
                     handleLoadComplete();
                 }
-            }, timeoutDuration);
+            }, selectedModel.category === 'sites' ? 30000 : 10000);
             
             // Handle audio button visibility
             if (selectedModel.audio) {
@@ -1616,11 +1608,6 @@
                     console.log('Audio play prevented:', err);
                 });
             }
-        });
-
-        // Add loading indicator
-        viewer.addEventListener('load', () => {
-            console.log('Model loaded successfully');
         });
 
         viewer.addEventListener('error', (event) => {
